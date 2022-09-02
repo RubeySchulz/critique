@@ -13,7 +13,7 @@ function Home() {
     console.log(word);
 
     if(!image){
-        getImage().then(response => console.log(response.json()))
+        getImage();
 
         setImage('hiii')
     }
@@ -45,7 +45,6 @@ function Home() {
                     </div>
                 </form>
             </div>
-            
         </>
         
     )
