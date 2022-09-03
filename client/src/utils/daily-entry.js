@@ -1,16 +1,14 @@
 export const getWord = () => fetch('https://random-word-form.herokuapp.com/random/noun');
 
-// export const getImage = () => 
-//     fetch('https://serpapi.com/search.json?q=Apple&tbm=isch&ijn=0', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Access-Control-Allow-Origin': '*',
-//             "Access-Control-Allow-Credentials" : true 
-//         },
-//         mode: 'no-cors'
-// });
-
 export const getImage = () => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '6baae7b932mshdb82ed0d81b2e18p1da744jsnb702d72cc093',
+            'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
+        }
+    };
     
+    return fetch('https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=dog&pageNumber=1&pageSize=1&autoCorrect=true', options)
+        
 }

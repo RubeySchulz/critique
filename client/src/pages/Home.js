@@ -8,14 +8,12 @@ function Home() {
     const [image, setImage] = useState('');
 
     if(!word){
-    getWord().then(response => response.json()).then(data => setWord(data));    
+        getWord().then(response => response.json()).then(data => setWord(data));    
     }
     console.log(word);
 
     if(!image){
-        getImage();
-
-        setImage('hiii')
+        getImage().then(response => response.json()).then(data => setImage(data));   
     }
     console.log(image)
 
