@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
     return (
-        <header>
-            <Link to='/'>
-                <h1>Critique</h1>
+        <header className='container'>
+            <Link to='/' className='row'>
+                <h1 className='text-center'>Critique</h1>
             </Link>
         </header>
     )
