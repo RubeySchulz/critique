@@ -12,6 +12,10 @@ body {
     monospace;
 } */
 
+header {
+  background-color: black;
+}
+
 .daily-image {
   position: relative
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Authorization from './pages/Authorization';
 
 // Apollo Imports
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -30,7 +32,10 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path='/' element={<Home/>} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<Authorization />}>
+            <Route path='/' element={<Home/>} />  
+          </Route>
         </Routes>
       </Router>  
     </ApolloProvider>

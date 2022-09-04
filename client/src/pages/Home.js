@@ -7,7 +7,7 @@ import { checkDay } from '../utils/handleDays';
 function Home() {
     const [info, setInfo] = useState({ word: '', image: '' });
 
-    const [initialStars, setInitialStars] = useState({ star1: blackstar, star2: blackstar, star3: blackstar, star4: blackstar, star5: blackstar })
+    const [initialStars, setInitialStars] = useState({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar })
     const [stars, setStars] = useState(initialStars);
 
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
@@ -18,7 +18,7 @@ function Home() {
             await checkDay().then(response => {
                 if(response !== undefined){
                     setInfo({ word: response.item, image: response.image });
-                    setReviewContent({ ...reviewContent, day: response._id })
+                    setReviewContent({ day: response._id })
                 }
             });
         }
@@ -31,19 +31,19 @@ function Home() {
         starNumber = parseInt(starNumber.split('star')[1]);
 
         if(starNumber === 1){
-            setStars({ star1: whitestar, star2: blackstar, star3: blackstar, star4: blackstar, star5: blackstar });
+            setStars({ star1: blackstar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
         }
         if(starNumber === 2){
-            setStars({ star1: whitestar, star2: whitestar, star3: blackstar, star4: blackstar, star5: blackstar });
+            setStars({ star1: blackstar, star2: blackstar, star3: whitestar, star4: whitestar, star5: whitestar });
         }
         if(starNumber === 3){
-            setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: blackstar, star5: blackstar });
+            setStars({ star1: blackstar, star2: blackstar, star3: blackstar, star4: whitestar, star5: whitestar });
         }
         if(starNumber === 4){
-            setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: blackstar });
+            setStars({ star1: blackstar, star2: blackstar, star3: blackstar, star4: blackstar, star5: whitestar });
         }
         if(starNumber === 5){
-            setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+            setStars({ star1: blackstar, star2: blackstar, star3: blackstar, star4: blackstar, star5: blackstar });
         }
     }
 
@@ -72,7 +72,7 @@ function Home() {
     return (
         <>
             <Nav></Nav>
-            <div className='container'>
+            <div className='container mt-4'>
                 <div className='row text-center daily-image'>
                     <h1 className='image-text-center'>{info.word}</h1>
                     <img className='w-100 mb-2' src={info.image} alt='currentDayImage'></img>
