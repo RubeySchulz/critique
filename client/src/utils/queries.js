@@ -47,20 +47,22 @@ export const GET_USER = gql`
 `;
 
 export const GET_DAY = gql`
-    query Day($date: String!) {
-        day(date: $date) {
+    query Day($dayId: ID!) {
+        day(dayId: $dayId) {
             _id
             date
             item
+            image
             reviews {
                 _id
                 body
                 starRating
-                createdAt
                 user {
                     _id
                     username
                 }
+                item
+                createdAt
             }
         }
     }

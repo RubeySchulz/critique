@@ -37,7 +37,7 @@ const typeDefs = gql`
         users: [User]
         user(username: String!): User
         days: [Day]
-        day(date: String!): Day
+        day(dayId: ID, date: String): Day
     }
 
     type Mutation {
@@ -46,7 +46,7 @@ const typeDefs = gql`
         addReview(body: String, starRating: Int!, user: ID!, day: ID!): Day
         addDay(date: String!, item: String!, image: String!): Day
         deleteDay(dayId: ID!): Day
-
+        deleteReview(reviewId: ID!): Review
     }
 `;
 

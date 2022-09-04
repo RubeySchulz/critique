@@ -20,16 +20,27 @@ const resolvers = {
                 path: 'reviews',
                 populate: { path: 'user',
                             model: 'User'}
-            });
+            })
         },
 
-        day: async (parent, { date }) => {
-            return Day.findOne({ date })
-            .populate({
-                path: 'reviews',
-                populate: { path: 'user',
-                            model: 'User'}
-            });
+        day: async (parent, { dayId, date }) => {
+            if(dayId) {
+                return Day.findOne({ _id: dayId })
+                .populate({
+                    path: 'reviews',
+                    populate: { path: 'user',
+                                model: 'User'}
+                });    
+            }
+            if(date){
+                return Day.findOne({ date })
+                .populate({
+                    path: 'reviews',
+                    populate: { path: 'user',
+                                model: 'User'}
+                }) 
+            }
+            return undefined;
         }
     },
 
@@ -88,6 +99,12 @@ const resolvers = {
             const day = Day.findOneAndDelete({ _id: dayId });
 
             return day;
+        },
+
+        deleteReview: async (parent, { reviewId }) => {
+            const review = Review.findByIdAndDelete({ _id: reviewId });
+
+            return review;
         }
     }
     

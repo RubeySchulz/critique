@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Nav from '../components/Navbar';
+import ReviewList from '../components/ReviewList';
 
 import blackstar from '../assets/black-star.png';
 import whitestar from '../assets/white-star.png';
@@ -18,6 +19,8 @@ function Home() {
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
     const [addReview] = useMutation(ADD_REVIEW);
 
+    const [currentReviews, setCurrentReviews] = useState([]);
+
 
     useEffect(() => {
 
@@ -26,6 +29,7 @@ function Home() {
                 if(response !== undefined){
                     setInfo({ word: response.item, image: response.image });
                     setReviewContent({ ...reviewContent, day: response._id, user: auth.getProfile().data._id })
+                    setCurrentReviews(response.reviews);
                 }
             });
         }
@@ -84,7 +88,6 @@ function Home() {
             [name]: value
         });
     }
-
     const submitReview = async (e) => {
         e.preventDefault();
 
@@ -92,13 +95,13 @@ function Home() {
             const { data } = await addReview({
                 variables: { ...reviewContent }
             })
-            console.log(data);
+            setCurrentReviews(data.addReview.reviews);
         } catch(e) {
             console.error(e);
         }
     }
 
-
+    console.log(currentReviews);
     if(!info.word || !info.image){
         return (
             <h1>Loading...</h1>
@@ -132,6 +135,9 @@ function Home() {
                         </div>
                     </form>
                 </div>    
+                <div className='row justify-content-center'>
+                    <ReviewList reviews={currentReviews} />
+                </div>
             </div>
             
         </>

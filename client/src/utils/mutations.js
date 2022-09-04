@@ -19,10 +19,15 @@ export const ADD_REVIEW = gql`
             _id
             date
             item
+            image
             reviews {
                 _id
                 body
                 starRating
+                user {
+                    _id
+                    username
+                }
                 item
                 createdAt
             }
