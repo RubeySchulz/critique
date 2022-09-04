@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
 import Nav from '../components/Navbar';
+
 import blackstar from '../assets/black-star.png';
 import whitestar from '../assets/white-star.png';
+
 import { checkDay } from '../utils/handleDays';
+import auth from '../utils/auth';
+import { ADD_REVIEW } from '../utils/mutations';
 
 function Home() {
     const [info, setInfo] = useState({ word: '', image: '' });
@@ -11,6 +16,8 @@ function Home() {
     const [stars, setStars] = useState(initialStars);
 
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
+    const [addReview] = useMutation(ADD_REVIEW);
+
 
     useEffect(() => {
 
@@ -18,7 +25,7 @@ function Home() {
             await checkDay().then(response => {
                 if(response !== undefined){
                     setInfo({ word: response.item, image: response.image });
-                    setReviewContent({ day: response._id })
+                    setReviewContent({ ...reviewContent, day: response._id, user: auth.getProfile().data._id })
                 }
             });
         }
@@ -49,6 +56,13 @@ function Home() {
 
     const starClickHandler = (e) => {
         e.preventDefault();
+        let starRating = e.target.id
+        starRating = parseInt(starRating.split('star')[1]);
+
+        setReviewContent({
+            ...reviewContent,
+            starRating
+        });
 
         starLogic(e.target.id);
         setInitialStars(stars);
@@ -60,6 +74,28 @@ function Home() {
 
     const starMouseLeave = (e) => {
         setStars({ ...initialStars });
+    }
+
+    const reviewChange = (e) => {
+        const {name, value } = e.target;
+
+        setReviewContent({
+            ...reviewContent,
+            [name]: value
+        });
+    }
+
+    const submitReview = async (e) => {
+        e.preventDefault();
+
+        try {
+            const { data } = await addReview({
+                variables: { ...reviewContent }
+            })
+            console.log(data);
+        } catch(e) {
+            console.error(e);
+        }
     }
 
 
@@ -78,9 +114,9 @@ function Home() {
                     <img className='w-100 mb-2' src={info.image} alt='currentDayImage'></img>
                 </div>
                 <div className='row justify-content-end'>
-                    <form className='row'>
+                    <form className='row' onSubmit={submitReview}>
                         <div className='row col-12'>
-                            <textarea className='w-100' name='review' placeholder='What are you thinkin pal?'></textarea>    
+                            <textarea className='w-100' name='body' placeholder='What are you thinkin pal?' onChange={reviewChange}></textarea>    
                         </div>
                         <div className='row col-12 mt-2'>
                             <div className='col-6 stars'>
