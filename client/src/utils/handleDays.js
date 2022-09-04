@@ -53,9 +53,9 @@ export const checkDay = async () => {
                 let image = await getImage(word);
                 return {word, image};
             });
-            
-            
-            console.log(info);
+
+            // !! uncomment for API testing mock data !!
+            // let info = {word: 'gerbil', image: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_(wild).jpg'};
 
             const postData = JSON.stringify({
                 query: `mutation AddDay($date: String!, $item: String!, $image: String!) {
@@ -85,7 +85,7 @@ export const checkDay = async () => {
                 }
             ).then(postResponse => postResponse.json()).then(postJson => postJson); 
             
-            return newData.day;
+            return newData.data.addDay;
         }
     } catch(e){
         console.error(e);
