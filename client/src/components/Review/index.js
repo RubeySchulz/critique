@@ -46,14 +46,14 @@ function Review({ data }) {
     return (
         <div className="container d-flex flex-wrap">
             <h1 className='row col-3'>{data.user.username}</h1>
-            <div className='stars row col-9 p-0'>
+            <div className='stars-review row col-9 p-0'>
                 <img src={star.one} alt='star'></img>
                 <img src={star.two} alt='star'></img>
                 <img src={star.three} alt='star'></img>
                 <img src={star.four} alt='star'></img>
                 <img src={star.five} alt='star'></img>
             </div>
-            <h2 className='row col-12'>{data.body}</h2>
+            <h4 className='row col-12'>{data.body}</h4>
         </div>
     )
 }

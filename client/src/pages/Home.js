@@ -111,25 +111,25 @@ function Home() {
     return (
         <>
             <Nav></Nav>
-            <div className='container mt-4'>
-                <div className='row text-center daily-image'>
+            <div className='container'>
+                <div className='row text-center daily-image mt-3 mb-3'>
                     <h1 className='image-text-center'>{info.word}</h1>
-                    <img className='w-100 mb-2' src={info.image} alt='currentDayImage'></img>
+                    <img className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
                 </div>
-                <div className='row justify-content-end'>
-                    <form className='row' onSubmit={submitReview}>
-                        <div className='row col-12'>
-                            <textarea className='w-100' name='body' placeholder='What are you thinkin pal?' onChange={reviewChange}></textarea>    
+                <div className='row'>
+                    <form className='twelve columns' onSubmit={submitReview}>
+                        <div>
+                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' onChange={reviewChange}></textarea>    
                         </div>
-                        <div className='row col-12 mt-2'>
-                            <div className='col-6 stars'>
+                        <div className='row'>
+                            <div className=' six columns stars'>
                                 <img onClick={starClickHandler} onMouseEnter={starMouseEnter} onMouseLeave={starMouseLeave} id='star1' src={stars.star1} alt='star'></img>
                                 <img onClick={starClickHandler} onMouseEnter={starMouseEnter} onMouseLeave={starMouseLeave} id='star2' src={stars.star2} alt='star'></img>
                                 <img onClick={starClickHandler} onMouseEnter={starMouseEnter} onMouseLeave={starMouseLeave} id='star3' src={stars.star3} alt='star'></img>
                                 <img onClick={starClickHandler} onMouseEnter={starMouseEnter} onMouseLeave={starMouseLeave} id='star4' src={stars.star4} alt='star'></img>
                                 <img onClick={starClickHandler} onMouseEnter={starMouseEnter} onMouseLeave={starMouseLeave} id='star5' src={stars.star5} alt='star'></img>
                             </div>
-                            <div className='col-6 text-end'>
+                            <div className='six columns end'>
                                 <button type='submit'>Submit</button>  
                             </div>
                         </div>

@@ -8,9 +8,9 @@ function Nav() {
     }
 
     return (
-        <header className='d-flex justify-content-between'>
+        <header className='flex flexwrap justify-content-between'>
             <Link to='/' className=''>
-                <h1>Left Thing</h1>
+                <h1>Profile</h1>
             </Link>
             <Link to='/' className=''>
                 <h1>Critique</h1>
