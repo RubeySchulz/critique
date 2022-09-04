@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../components/Navbar';
-import blackstar from '../assets/black-star.png'
-import { getWord, getImage } from '../utils/daily-entry';
+import blackstar from '../assets/black-star.png';
+import whitestar from '../assets/white-star.png';
+import { checkDay } from '../utils/handleDays';
 
 function Home() {
-    const [word, setWord] = useState('');
-    const [image, setImage] = useState('');
-
-    if(!word){
-        getWord().then(response => response.json()).then(data => setWord(data));    
-    }
-    console.log(word);
-
-    if(!image){
-        getImage().then(response => response.json()).then(data => setImage(data));   
-    }
-    console.log(image)
+    useEffect(() => {
+        const data = async () => {
+            await checkDay().then(response => {console.log(response)});
+        }
+        data();
+    })
 
     return (
         <>
@@ -31,7 +26,8 @@ function Home() {
                     </div>
                     <div className='row col-12 justify-content-between'>
                         <div className='col-6'>
-                            <img src={blackstar} alt='black star'></img>
+                            <button><img src={blackstar} alt='black star'></img></button>
+                            
                             <img src={blackstar} alt='black star'></img>
                             <img src={blackstar} alt='black star'></img>
                             <img src={blackstar} alt='black star'></img>

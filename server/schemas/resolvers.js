@@ -87,6 +87,12 @@ const resolvers = {
 
             return day;
         },
+
+        deleteDay: async (parent, { dayId }) => {
+            const day = Day.findOneAndDelete({ _id: dayId });
+
+            return day;
+        }
     }
     
 };

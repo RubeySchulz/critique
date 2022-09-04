@@ -44,6 +44,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         addReview(body: String, starRating: Int!, user: ID!, day: ID!): Day
         addDay(date: String!, item: String!, image: String!): Day
+        deleteDay(dayId: ID!): Day
 
     }
 `;
