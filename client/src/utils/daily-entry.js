@@ -10,5 +10,5 @@ export const getImage = () => {
     };
     
     return fetch('https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=dog&pageNumber=1&pageSize=1&autoCorrect=true', options)
-        
+    
 }

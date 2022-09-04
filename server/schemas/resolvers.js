@@ -16,12 +16,20 @@ const resolvers = {
 
         days: async () => {
             return Day.find()
-            .populate('reviews')
+            .populate({
+                path: 'reviews',
+                populate: { path: 'user',
+                            model: 'User'}
+            });
         },
 
         day: async (parent, { date }) => {
             return Day.findOne({ date })
-            .populate('reviews')
+            .populate({
+                path: 'reviews',
+                populate: { path: 'user',
+                            model: 'User'}
+            });
         }
     },
 
@@ -55,19 +63,27 @@ const resolvers = {
                 { _id: args.day },
                 { $addToSet: { reviews: review._id } },
                 { new: true }
-            ).populate('reviews')
+            ).populate({
+                path: 'reviews',
+                populate: { path: 'user',
+                            model: 'User'}
+            });
 
             const user = await User.findOneAndUpdate(
                 { _id: args.user },
                 { $addToSet: { reviews: review._id } },
                 { new: true }
-            ).populate('reviews')
+            )
 
             return day;
         },
 
         addDay: async (parent, args, context) => {
-            const day = Day.create(args);
+            const day = Day.create(args).populate({
+                path: 'reviews',
+                populate: { path: 'user',
+                            model: 'User'}
+            });;
 
             return day;
         },

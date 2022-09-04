@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
 const daySchema = new Schema(
     {
@@ -12,8 +11,6 @@ const daySchema = new Schema(
         date: {
             type: Date,
             required: true,
-            default: Date.now,
-            get: date => dateFormat(date)
         },
 
         image: {
