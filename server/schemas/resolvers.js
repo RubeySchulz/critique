@@ -79,11 +79,7 @@ const resolvers = {
         },
 
         addDay: async (parent, args, context) => {
-            const day = Day.create(args).populate({
-                path: 'reviews',
-                populate: { path: 'user',
-                            model: 'User'}
-            });;
+            const day = Day.create(args)
 
             return day;
         },

@@ -12,6 +12,7 @@ const daySchema = new Schema(
         date: {
             type: Date,
             required: true,
+            unique: true,
             get: date => dateFormat(date)
         },
 

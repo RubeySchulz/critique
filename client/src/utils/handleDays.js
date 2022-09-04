@@ -45,17 +45,15 @@ export const checkDay = async () => {
         ).then(response => response.json()).then(json => json.data); 
         
         if(data.day){
-            
-
             return data.day;
 
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
                 const word = data[0];
-                let image = await getImage(word).then(response => response.json()).then(data => data.value[1].url);
+                let image = await getImage(word);
                 return {word, image};
             });
-
+            
             
             console.log(info);
 

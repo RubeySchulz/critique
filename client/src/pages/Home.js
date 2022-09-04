@@ -8,6 +8,7 @@ function Home() {
     const [info, setInfo] = useState({ word: '', image: '' });
 
     useEffect(() => {
+
         const data = async () => {
             await checkDay().then(response => {
                 if(response !== undefined){
@@ -19,8 +20,6 @@ function Home() {
         data();
         
     }, []);
-
-    console.log(info); 
 
     if(!info.word || !info.image){
         return (
