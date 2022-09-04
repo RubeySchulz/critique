@@ -9,6 +9,6 @@ export const getImage = (word) => {
         }
     };
     
-    return fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${word}&pageNumber=1&pageSize=1`, options)
+    return fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${word}&pageNumber=1&pageSize=2`, options)
     
 }

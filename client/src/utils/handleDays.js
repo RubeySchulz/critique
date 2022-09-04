@@ -11,6 +11,7 @@ export const checkDay = async () => {
                 _id
                 date
                 item
+                image
                 reviews {
                     _id
                     body
@@ -51,7 +52,7 @@ export const checkDay = async () => {
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
                 const word = data[0];
-                let image = await getImage(word).then(response => response.json()).then(data => data.value[0].url);
+                let image = await getImage(word).then(response => response.json()).then(data => data.value[1].url);
                 return {word, image};
             });
 
@@ -64,6 +65,7 @@ export const checkDay = async () => {
                         _id
                         date
                         item
+                        image
                     }
                 }`,
                 variables: `{
