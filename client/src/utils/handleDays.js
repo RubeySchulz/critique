@@ -44,8 +44,20 @@ export const checkDay = async () => {
         ).then(response => response.json()).then(json => json.data); 
         
         if(data.day){
+            
+
             return data.day;
+
         } else {
+            let info = await getWord().then(response => response.json()).then(async data => {
+                const word = data[0];
+                let image = await getImage(word).then(response => response.json()).then(data => data.value[0].url);
+                return {word, image};
+            });
+
+            
+            console.log(info);
+
             const postData = JSON.stringify({
                 query: `mutation AddDay($date: String!, $item: String!, $image: String!) {
                     addDay(date: $date, item: $item, image: $image) {
@@ -56,8 +68,8 @@ export const checkDay = async () => {
                 }`,
                 variables: `{
                     "date": "${currentDay}",
-                    "item": "France",
-                    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/1200px-Flag_of_France.svg.png"
+                    "item": "${info.word}",
+                    "image": "${info.image}"
                 }`
             });
             
@@ -75,10 +87,6 @@ export const checkDay = async () => {
             
             return newData.day;
         }
-
-        
-        
-
     } catch(e){
         console.error(e);
     }

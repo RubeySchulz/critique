@@ -5,6 +5,7 @@ const typeDefs = gql`
         _id: ID
         date: String
         item: String
+        image: String
         reviews: [Review]
     }
 

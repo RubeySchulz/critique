@@ -1,6 +1,6 @@
 export const getWord = () => fetch('https://random-word-form.herokuapp.com/random/noun');
 
-export const getImage = () => {
+export const getImage = (word) => {
     const options = {
         method: 'GET',
         headers: {
@@ -9,6 +9,6 @@ export const getImage = () => {
         }
     };
     
-    return fetch('https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=dog&pageNumber=1&pageSize=1&autoCorrect=true', options)
+    return fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${word}&pageNumber=1&pageSize=1`, options)
     
 }
