@@ -19,8 +19,7 @@ function Home() {
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
     const [addReview] = useMutation(ADD_REVIEW);
 
-    const [currentReviews, setCurrentReviews] = useState([]);
-
+    const [currentReviews, setReviewState] = useState([]);
 
     useEffect(() => {
 
@@ -35,6 +34,12 @@ function Home() {
         }
         data();
     }, []);
+
+    const setCurrentReviews = (reviews) => {
+        const sorted = reviews.sort().reverse();
+
+        setReviewState(sorted);
+    }
 
     const starLogic = (id) => {
 
