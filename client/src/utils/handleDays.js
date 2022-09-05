@@ -64,6 +64,17 @@ export const checkDay = async () => {
                         date
                         item
                         image
+                        reviews {
+                            _id
+                            body
+                            starRating
+                            createdAt
+                            user {
+                                _id
+                                username
+                            }
+                        }
+
                     }
                 }`,
                 variables: `{

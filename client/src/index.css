@@ -26,6 +26,7 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   color: aliceblue;
+  font-size: 7.0rem;
 }
 
 .stars img {

@@ -99,9 +99,12 @@ function Home() {
         } catch(e) {
             console.error(e);
         }
+
+        setReviewContent({ ...reviewContent, body: '', starRating: null });
+        setInitialStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+        setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
     }
 
-    console.log(currentReviews);
     if(!info.word || !info.image){
         return (
             <h1>Loading...</h1>
@@ -119,7 +122,7 @@ function Home() {
                 <div className='row'>
                     <form className='twelve columns' onSubmit={submitReview}>
                         <div>
-                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' onChange={reviewChange}></textarea>    
+                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' value={reviewContent.body} onChange={reviewChange}></textarea>    
                         </div>
                         <div className='row'>
                             <div className=' six columns stars'>
@@ -141,11 +144,7 @@ function Home() {
             </div>
             
         </>
-        
     )    
-
-
-    
 }
 
 export default Home;
