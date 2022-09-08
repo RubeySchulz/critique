@@ -49,7 +49,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <div className='tier-list'>
+            <div className='container tier-list'>
                 <h1>Reviews: {user.reviews.length}</h1>
                 <TierList reviews={user.reviews}/>
             </div>

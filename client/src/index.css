@@ -16,6 +16,9 @@ body {
 
 header {
   background-color: black;
+  color: white;
+  padding: 0 30px;
+  padding-top: 10px;
 }
 
 .flex {
@@ -61,6 +64,15 @@ header {
 
 .daily-image {
   position: relative
+}
+
+.inline {
+  display: inline;
+}
+
+.logo {
+  filter:invert();
+  height: 84px;
 }
 
 /*--------------------------------- Home Styling */

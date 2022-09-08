@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from'../../assets/logo.gif';
 import auth from '../../utils/auth';
 
 function Nav({ length }) {
@@ -12,10 +13,14 @@ function Nav({ length }) {
             <Link to='/profile' className=''>
                 <h1>Profile</h1>
             </Link>
-            <Link to='/' className=''>
-                <h1>Critique {length}</h1>
-            </Link>
-            <Link to='/' onClick={logout} className=''>
+            <div>
+                <Link to='/'>
+                    <img className='logo' src={logo} alt='logo'/>
+                    
+                </Link>   
+                <h4 className='inline'> {length}</h4>
+            </div>
+            <Link to='/' onClick={logout} >
                 <h1>Logout</h1>
             </Link>
 

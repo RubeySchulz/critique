@@ -3,9 +3,7 @@ import React from 'react';
 
 function TierList({ reviews }) {
     return (
-        <div className='container'>
-            
-
+        <div>
             {reviews && 
                 reviews.map(review => (
                     <div key={review._id}>
