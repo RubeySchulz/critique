@@ -27,7 +27,13 @@ const resolvers = {
         
         user: async(parent, { username }) => {
             return User.findOne({ username })
+            .select('-__v -password')
             .populate('reviews')
+            .populate({
+                path: 'reviews',
+                populate: { path: 'day',
+                            model: 'Day'}
+            })
         },
 
         days: async () => {

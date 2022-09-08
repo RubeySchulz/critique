@@ -20,7 +20,7 @@ export const QUERY_ME = gql`
             }
         }
     }
-`
+`;
 
 export const ALL_USERS = gql`
     query Users {
@@ -48,7 +48,7 @@ export const ALL_DAYS = gql`
     }
 `;
 
-export const GET_USER = gql`
+export const QUERY_GET_USER = gql`
     query User($username: String!) {
         user(username: $username) {
             _id
@@ -60,10 +60,10 @@ export const GET_USER = gql`
                 starRating
                 createdAt
                 day {
-                _id
-                date
-                item
-                image
+                    _id
+                    date
+                    item
+                    image
                 }
             }
         }

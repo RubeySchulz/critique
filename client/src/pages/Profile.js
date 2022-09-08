@@ -5,15 +5,15 @@ import { useQuery, useMutation } from '@apollo/client';
 import TierList from '../components/TierList';
 import Nav from '../components/Navbar';
 
-import { QUERY_ME, GET_USER } from '../utils/queries';
+import { QUERY_ME, QUERY_GET_USER } from '../utils/queries';
 import auth from '../utils/auth';
 
 function Profile() {
     const { username: userParam } = useParams();
-
-    const { loading, data } = useQuery(userParam ? GET_USER : QUERY_ME, {
+    
+    const { loading, error, data } = useQuery(userParam ? QUERY_GET_USER : QUERY_ME, {
         variables: { username: userParam }
-    });
+    })
 
     const user = data?.user || data?.me || {};
 
@@ -26,6 +26,7 @@ function Profile() {
     };
 
     if(!user?.username) {
+        console.log(error)
         return (
             <h4>
                 You need to be logged in to see this page.

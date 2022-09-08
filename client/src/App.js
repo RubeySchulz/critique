@@ -10,9 +10,18 @@ import Profile from './pages/Profile';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-const httpLink = createHttpLink({
-  uri: 'graphql'
-});
+let httpLink = null;
+
+if(process.env.NODE_ENV === 'production'){
+  httpLink = createHttpLink({
+    uri: process.env.URI
+  });
+} else {
+  httpLink = createHttpLink({
+    uri: 'http://localhost:3001/graphql'
+  });
+}
+
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
