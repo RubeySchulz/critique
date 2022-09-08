@@ -1,9 +1,22 @@
 import React from 'react';
 
 
-function TierList() {
+function TierList({ reviews }) {
     return (
-        <h1>Tier List</h1>
+        <div className='container'>
+            
+
+            {reviews && 
+                reviews.map(review => (
+                    <div key={review._id}>
+                        <h2>item: {review.day.item}</h2>
+                        <h2>stars: {review.starRating}</h2>
+                        <h2>body: {review.body}</h2>
+                        <p>------------------------</p>
+                    </div>
+                ))
+            }    
+        </div>
     )
 }
 

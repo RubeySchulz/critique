@@ -123,7 +123,7 @@ function Home() {
 
     return (
         <>
-            <Nav length={info.length}></Nav>
+            <Nav length={'#' + info.length}></Nav>
             <div className='container'>
                 <div className='row text-center daily-image mt-3 mb-3'>
                     <img className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>

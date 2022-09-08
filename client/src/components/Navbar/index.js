@@ -9,11 +9,11 @@ function Nav({ length }) {
 
     return (
         <header className='flex flex-wrap justify-content-between'>
-            <Link to='/' className=''>
+            <Link to='/profile' className=''>
                 <h1>Profile</h1>
             </Link>
             <Link to='/' className=''>
-                <h1>Critique #{length}</h1>
+                <h1>Critique {length}</h1>
             </Link>
             <Link to='/' onClick={logout} className=''>
                 <h1>Logout</h1>

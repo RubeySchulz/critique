@@ -12,13 +12,58 @@ body {
     monospace;
 } */
 
+/*--------------------------------- General Rules */
+
 header {
   background-color: black;
+}
+
+.flex {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.end {
+  text-align: end;
+}
+
+.mt-3 {
+  margin-top: 10px;
+}
+
+.mr-3 {
+  margin-right: 10px;
+}
+
+.ml-3 {
+  margin-left: 10px;
+}
+
+.mb-3 {
+  margin-bottom: 10px;
 }
 
 .daily-image {
   position: relative
 }
+
+/*--------------------------------- Home Styling */
 
 .image-text-center {
   position: absolute;
@@ -39,23 +84,6 @@ header {
   height: 35px;
 }
 
-.flex {
-  display:flex;
-  flex-wrap: wrap;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.justify-content-end {
-  justify-content: end;
-}
-
-.text-center {
-  text-align: center;
-}
-
 .main-image {
   margin-left: auto;
   margin-right: auto;
@@ -64,14 +92,12 @@ header {
   z-index: -1;
 }
 
-.end {
-  text-align: end;
+/*--------------------------------- profile-styling */
+
+.profile-header {
+  border-bottom: 1px black solid;
 }
 
-.mt-3 {
-  margin-top: 10px;
-}
-
-.mb-3 {
-  margin-bottom: 10px;
+.profile-header h1, h3, h6 {
+  display: inline-block
 }
