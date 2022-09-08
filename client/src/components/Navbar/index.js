@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../../utils/auth';
 
-function Nav() {
+function Nav({ length }) {
     const logout = () => {
         auth.logout();
     }
 
     return (
-        <header className='flex flexwrap justify-content-between'>
+        <header className='flex flex-wrap justify-content-between'>
             <Link to='/' className=''>
                 <h1>Profile</h1>
             </Link>
             <Link to='/' className=''>
-                <h1>Critique</h1>
+                <h1>Critique #{length}</h1>
             </Link>
             <Link to='/' onClick={logout} className=''>
                 <h1>Logout</h1>

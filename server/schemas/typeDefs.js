@@ -14,7 +14,6 @@ const typeDefs = gql`
         body: String
         starRating: Int
         user: User
-        item: String
         createdAt: String
         day: Day
     }

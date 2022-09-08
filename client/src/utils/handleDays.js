@@ -106,3 +106,34 @@ export const checkDay = async () => {
 
 };
 
+export const getDayNumber = async () => {
+    const getDays = JSON.stringify({
+        query: `query Days {
+            days {
+                _id
+                date
+                item
+            }
+        }`
+    });
+
+    try {
+        const data = await fetch(
+            '/graphql',
+            {
+                method: 'post',
+                body: getDays,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': getDays.length
+                }
+            }
+        ).then(response => response.json()).then(json => json.data); 
+
+        if(data){
+            return data.days.length;
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}

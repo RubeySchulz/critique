@@ -18,8 +18,8 @@ export const ADD_REVIEW = gql`
         addReview(starRating: $starRating, user: $user, day: $day, body: $body) {
             _id
             date
-            item
             image
+            item
             reviews {
                 _id
                 body
@@ -28,7 +28,6 @@ export const ADD_REVIEW = gql`
                     _id
                     username
                 }
-                item
                 createdAt
             }
         }

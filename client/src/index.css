@@ -60,6 +60,8 @@ header {
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
+  filter: brightness(50%);
+  z-index: -1;
 }
 
 .end {

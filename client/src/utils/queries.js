@@ -1,5 +1,27 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_ME = gql`
+    query Me {
+        me {
+            _id
+            username
+            email
+            reviews {
+                _id
+                body
+                starRating
+                createdAt
+                day {
+                    _id
+                    date
+                    item
+                    image
+                }
+            }
+        }
+    }
+`
+
 export const ALL_USERS = gql`
     query Users {
         users {
@@ -11,7 +33,6 @@ export const ALL_USERS = gql`
                 _id
                 body
                 starRating
-                item
             }
         }
     }
@@ -23,15 +44,6 @@ export const ALL_DAYS = gql`
             _id
             date
             item
-            reviews {
-                _id
-                body
-                starRating
-                user {
-                username
-                _id
-                }
-            }
         }
     }
 `;
@@ -42,6 +54,18 @@ export const GET_USER = gql`
             _id
             username
             email
+            reviews {
+                _id
+                body
+                starRating
+                createdAt
+                day {
+                _id
+                date
+                item
+                image
+                }
+            }
         }
     }
 `;
