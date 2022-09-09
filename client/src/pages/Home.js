@@ -6,12 +6,12 @@ import ReviewList from '../components/ReviewList';
 import blackstar from '../assets/black-star.png';
 import whitestar from '../assets/white-star.png';
 
-import { checkDay } from '../utils/handleDays';
+import { checkDay, getDayNumber } from '../utils/handleDays';
 import auth from '../utils/auth';
 import { ADD_REVIEW } from '../utils/mutations';
 
 function Home() {
-    const [info, setInfo] = useState({ word: '', image: '' });
+    const [info, setInfo] = useState({ word: '', image: '', length: 0 });
 
     const [initialStars, setInitialStars] = useState({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar })
     const [stars, setStars] = useState(initialStars);
@@ -19,22 +19,31 @@ function Home() {
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
     const [addReview] = useMutation(ADD_REVIEW);
 
-    const [currentReviews, setCurrentReviews] = useState([]);
-
+    const [currentReviews, setReviewState] = useState([]);
 
     useEffect(() => {
 
         const data = async () => {
-            await checkDay().then(response => {
+            await checkDay().then(async response => {
                 if(response !== undefined){
-                    setInfo({ word: response.item, image: response.image });
+                    const number = await getDayNumber();      
+
+                    setInfo({ word: response.item, image: response.image, length: number });
                     setReviewContent({ ...reviewContent, day: response._id, user: auth.getProfile().data._id })
                     setCurrentReviews(response.reviews);
                 }
             });
+
+            
         }
         data();
     }, []);
+
+    const setCurrentReviews = (reviews) => {
+        const sorted = reviews.sort().reverse();
+
+        setReviewState(sorted);
+    };
 
     const starLogic = (id) => {
 
@@ -56,7 +65,7 @@ function Home() {
         if(starNumber === 5){
             setStars({ star1: blackstar, star2: blackstar, star3: blackstar, star4: blackstar, star5: blackstar });
         }
-    }
+    };
 
     const starClickHandler = (e) => {
         e.preventDefault();
@@ -74,11 +83,11 @@ function Home() {
 
     const starMouseEnter = (e) => {
         starLogic(e.target.id);
-    }
+    };
 
     const starMouseLeave = (e) => {
         setStars({ ...initialStars });
-    }
+    };
 
     const reviewChange = (e) => {
         const {name, value } = e.target;
@@ -87,7 +96,8 @@ function Home() {
             ...reviewContent,
             [name]: value
         });
-    }
+    };
+
     const submitReview = async (e) => {
         e.preventDefault();
 
@@ -99,27 +109,30 @@ function Home() {
         } catch(e) {
             console.error(e);
         }
-    }
 
-    console.log(currentReviews);
+        setReviewContent({ ...reviewContent, body: '', starRating: null });
+        setInitialStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+        setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+    };
+
     if(!info.word || !info.image){
         return (
             <h1>Loading...</h1>
         )
-    } 
+    };
 
     return (
         <>
-            <Nav></Nav>
+            <Nav length={'#' + info.length}></Nav>
             <div className='container'>
                 <div className='row text-center daily-image mt-3 mb-3'>
-                    <h1 className='image-text-center'>{info.word}</h1>
                     <img className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
+                    <h1 className='image-text-center'>{info.word}</h1>
                 </div>
                 <div className='row'>
                     <form className='twelve columns' onSubmit={submitReview}>
                         <div>
-                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' onChange={reviewChange}></textarea>    
+                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' value={reviewContent.body} onChange={reviewChange}></textarea>    
                         </div>
                         <div className='row'>
                             <div className=' six columns stars'>
@@ -141,11 +154,7 @@ function Home() {
             </div>
             
         </>
-        
     )    
-
-
-    
-}
+};
 
 export default Home;
