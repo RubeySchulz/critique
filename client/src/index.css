@@ -62,10 +62,6 @@ header {
   margin-bottom: 10px;
 }
 
-.daily-image {
-  position: relative
-}
-
 .inline {
   display: inline;
 }
@@ -77,13 +73,17 @@ header {
 
 /*--------------------------------- Home Styling */
 
+.daily-image {
+  position: relative
+}
+
 .image-text-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: aliceblue;
-  font-size: 7.0rem;
+  font-size: 10.0rem;
 }
 
 .stars img {
@@ -99,8 +99,9 @@ header {
 .main-image {
   margin-left: auto;
   margin-right: auto;
-  width: 50vw;
   filter: brightness(50%);
+  object-fit: cover;
+  height: 800px;
   z-index: -1;
 }
 
@@ -110,6 +111,98 @@ header {
   border-bottom: 1px black solid;
 }
 
-.profile-header h1, h3, h6 {
+.profile-header h1, h2, h3, h4, h5 {
   display: inline-block
+}
+
+.profile-content {
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.profile-name {
+  font-size: 10rem;
+}
+
+/*--------------------------------- tier-list-styling */
+
+.tier-list {
+  justify-content:center;
+}
+
+.tier-list .row {
+  min-height: 200px;
+  padding: 10px 0;
+}
+
+.tier-label {
+  border-right: 2px white solid;
+  margin-right: 5px;
+  height: 180px;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.tier-label img {
+  width:35px;
+  height:35px;
+}
+
+.tier-list .item-image {
+  object-fit: cover;
+  height: 175px;
+  width: 175px;
+  filter: blur(5px) brightness(50%);
+  z-index: -1;
+  
+}
+.tier-list h6, .border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.border {
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 1;
+  float: none;
+  box-shadow:0px 0px 0px 5px black inset;
+  border: 1px black solid
+}
+
+.tier-item {
+  position: relative;
+  margin: 0 10px;
+}
+
+.tier-list h6 {
+  font-size: 3rem;
+  color: white;
+}
+
+.tier-content {
+  width: 100%;
+}
+
+#tierFive {
+  background-color: #000000;
+}
+
+#tierFour {
+  background-color: #404040;
+}
+
+#tierThree {
+  background-color: #737373;
+}
+
+#tierTwo {
+  background-color: #b3b3b3;
+}
+
+#tierOne {
+  background-color: #d9d9d9;
 }

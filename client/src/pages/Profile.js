@@ -39,18 +39,20 @@ function Profile() {
             <Nav />
             <div className='mt-3'>
                 <div className='profile-header container justify-content-center'>
-                    <div className='row six columns'>
-                        <h1>{user.username}</h1>
-                        <h6 className='ml-3'>The Esteemed</h6>
-                    </div>
-                    <div className='row six columns text-end'>
-                        <h3>Followers: #</h3>
-                        <h3  className='ml-3'>Following: #</h3>
+                    <div className='row flex profile-content'>
+                        <div>
+                            <h1 className='profile-name'>{user.username}</h1>
+                            <h5 className='ml-3'>The Esteemed</h5>    
+                        </div>
+                        <div>
+                            <h3>Followers: #</h3>
+                            <h3 className='ml-3'>Following: #</h3>    
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className='container tier-list'>
-                <h1>Reviews: {user.reviews.length}</h1>
+            <div className='container'>
+                <h2>Reviews: {user.reviews.length}</h2>
                 <TierList reviews={user.reviews}/>
             </div>
         </>
