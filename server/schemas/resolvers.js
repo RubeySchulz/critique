@@ -14,6 +14,8 @@ const resolvers = {
                         populate: { path: 'day',
                                     model: 'Day'}
                     })
+                    .populate('followers')
+                    .populate('following')
                 return userData;    
             }
 
@@ -23,6 +25,8 @@ const resolvers = {
         users: async () => {
             return User.find()
             .populate('reviews')
+            .populate('followers')
+                    .populate('following')
         },
         
         user: async(parent, { username }) => {
@@ -34,6 +38,8 @@ const resolvers = {
                 populate: { path: 'day',
                             model: 'Day'}
             })
+            .populate('followers')
+            .populate('following')
         },
 
         days: async () => {
@@ -137,7 +143,47 @@ const resolvers = {
             const review = Review.findByIdAndDelete({ _id: reviewId });
 
             return review;
-        }
+        },
+
+        followUser: async (parent, { followId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { following: followId } },
+                { new: true }
+                ).populate("following");
+
+                const followed = await User.findOneAndUpdate(
+                    { _id: followId },
+                    { $addToSet: { followers: context.user._id } },
+                    { new: true }
+                );
+        
+                return updatedUser;
+            }
+        
+            throw new AuthenticationError("You need to be logged in!");
+        },
+      
+        unfollowUser: async (parent, { unfollowId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { following: unfollowId } },
+                { new: true }
+                ).populate("following");
+
+                const followed = await User.findOneAndUpdate(
+                { _id: unfollowId },
+                { $pull: { followers: context.user._id } },
+                { new: true }
+                );
+        
+                return updatedUser;
+            }
+        
+            throw new AuthenticationError("You need to be logged in!");
+        },
     }
     
 };
