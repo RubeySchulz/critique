@@ -7,7 +7,225 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+/*--------------------------------- General Rules */
+
+header {
+  background-color: black;
+  color: white;
+  padding: 0 30px;
+  padding-top: 10px;
+}
+
+footer {
+  background-color: white;
+  height: 2vh;
+  margin-top: 8vh!important;
+  padding: 10px 0;
+}
+
+footer a {
+  color: black;
+}
+
+.flex {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.end {
+  text-align: end;
+}
+
+.mt-3 {
+  margin-top: 10px;
+}
+
+.mr-3 {
+  margin-right: 10px;
+}
+
+.ml-3 {
+  margin-left: 10px;
+}
+
+.mb-3 {
+  margin-bottom: 10px;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.logo {
+  filter:invert();
+  height: 84px;
+}
+
+/*--------------------------------- Home Styling */
+
+form textarea {
+  min-height: 200px;
+}
+
+.daily-image {
+  position: relative
+}
+
+.image-text-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: aliceblue;
+  font-size: 10.0rem;
+}
+
+.stars img {
+  width: 50px;
+  height: 50px;
+}
+
+.stars-review img {
+  width: 35px;
+  height: 35px;
+}
+
+.main-image {
+  margin-left: auto;
+  margin-right: auto;
+  filter: brightness(50%);
+  object-fit: cover;
+  height: 800px;
+  z-index: -1;
+}
+
+/*--------------------------------- profile-styling */
+
+.profile-header {
+  border-bottom: 1px black solid;
+}
+
+.profile-header h1, h2, h3, h4, h5 {
+  display: inline-block
+}
+
+.profile-content {
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.profile-name {
+  font-size: 10rem;
+}
+
+/*--------------------------------- tier-list-styling */
+
+.tier-list {
+  justify-content:center;
+}
+
+.tier-list .row {
+  min-height: 200px;
+  padding: 10px 0;
+}
+
+.tier-label {
+  border-right: 2px white solid;
+  margin-right: 5px;
+  height: 180px;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.tier-label img {
+  width:35px;
+  height:35px;
+}
+
+.tier-list .item-image {
+  object-fit: cover;
+  height: 175px;
+  width: 175px;
+  filter: blur(5px) brightness(50%);
+  z-index: -1;
+  
+}
+.tier-list h6, .border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.border {
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 1;
+  float: none;
+  box-shadow:0px 0px 0px 5px black inset;
+  border: 1px black solid
+}
+
+.tier-item {
+  position: relative;
+  margin: 0 10px;
+}
+
+.tier-list h6 {
+  font-size: 3rem;
+  color: white;
+}
+
+.tier-content {
+  width: 100%;
+}
+
+#tierFive {
+  background-color: #000000;
+}
+
+#tierFour {
+  background-color: #404040;
+}
+
+#tierThree {
+  background-color: #737373;
+}
+
+#tierTwo {
+  background-color: #b3b3b3;
+}
+
+#tierOne {
+  background-color: #d9d9d9;
 }
