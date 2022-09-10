@@ -56,3 +56,13 @@ export const LOGIN = gql`
         }
     }
 `;
+
+export const UPDATE_DAY = gql`
+    mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {
+        updateDay(dayId: $dayId, image: $image, item: $item) {
+            _id
+            item
+            image
+        }
+    }
+`;
