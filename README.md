@@ -4,9 +4,9 @@ daily infinite tier list website
 ## What is this?
 critique is a website to (eventually) rate everything in the world, so you can see where it all lies in a simple concise tier list.
 Everyday everyone recieves the same prompt of a random noun on the earth, everyone writes a reviews with a star rating, and the discussion starts.
-Compare how you view the world to your friends and strangers, see what everyone opinion is about everything.
+Compare how you view the world to your friends and strangers, see what everyone's opinion is about everything.
 
-##Where can I use this website?
+## Where can I use this website?
 It is currently in production by just one developer (me) but a beta test is planned to be released soon once it's fully built.
 
 ## Why?
