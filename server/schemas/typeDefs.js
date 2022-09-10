@@ -45,6 +45,7 @@ const typeDefs = gql`
         addReview(body: String, starRating: Int!, user: ID!, day: ID!): Day
         addDay(date: String!, item: String!, image: String!): Day
         deleteDay(dayId: ID!): Day
+        updateDay(dayId: ID!, image: String!, item: String!): Day
         deleteReview(reviewId: ID!): Review
     }
 `;

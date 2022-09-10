@@ -6,7 +6,7 @@ import ReviewList from '../components/ReviewList';
 import blackstar from '../assets/black-star.png';
 import whitestar from '../assets/white-star.png';
 
-import { checkDay, getDayNumber } from '../utils/handleDays';
+import { checkDay, getDayNumber, fixImg } from '../utils/handleDays';
 import auth from '../utils/auth';
 import { ADD_REVIEW } from '../utils/mutations';
 
@@ -41,7 +41,6 @@ function Home() {
 
     const setCurrentReviews = (reviews) => {
         const sorted = reviews.sort().reverse();
-
         setReviewState(sorted);
     };
 
@@ -115,6 +114,11 @@ function Home() {
         setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
     };
 
+    const brokenImg = async () => {
+        const fixedImg = await fixImg(info.word, reviewContent.day);
+        setInfo({ ...info, image: fixedImg });
+    }
+
     if(!info.word || !info.image){
         return (
             <h1>Loading...</h1>
@@ -126,7 +130,7 @@ function Home() {
             <Nav length={'#' + info.length}></Nav>
             <div className='container'>
                 <div className='row text-center daily-image mt-3 mb-3'>
-                    <img className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
+                    <img onError={brokenImg} className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
                     <h1 className='image-text-center'>{info.word}</h1>
                 </div>
                 <div className='row'>

@@ -123,6 +123,16 @@ const resolvers = {
             return day;
         },
 
+        updateDay: async (parent, { dayId, image, item }) => {
+            const day = Day.findOneAndUpdate(
+                { _id: dayId },
+                { image, item },
+                { new: true }
+            );
+
+            return day;
+        },
+
         deleteReview: async (parent, { reviewId }) => {
             const review = Review.findByIdAndDelete({ _id: reviewId });
 

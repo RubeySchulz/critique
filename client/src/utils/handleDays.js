@@ -50,7 +50,7 @@ export const checkDay = async () => {
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
                 const word = data[0];
-                let image = await getImage(word);
+                let image = await getImage(word, 1);
                 return {word, image};
             });
 
@@ -101,10 +101,48 @@ export const checkDay = async () => {
     } catch(e){
         console.error(e);
     }
-
-
-
 };
+
+export const fixImg = async (word, dayId) => {
+    const img = await getImage(word, 2)
+    console.log(dayId)
+
+    const fixData = JSON.stringify({
+        query: `mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {
+            updateDay(dayId: $dayId, image: $image, item: $item) {
+                _id
+                item
+                image
+            }
+        }`,
+        variables: `{
+            "dayId": "${dayId}",
+            "item": "${word}",
+            "image": "${img}"
+        }`
+    });
+
+
+    try {
+        const data = await fetch(
+            '/graphql',
+            {
+                method: 'post',
+                body: fixData,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': fixData.length
+                }
+            }
+        ).then(postResponse => postResponse.json()).then(postJson => postJson);
+
+        console.log(data);
+    } catch (e){
+        console.error(e)
+    }
+    
+    return img;
+}
 
 export const getDayNumber = async () => {
     const getDays = JSON.stringify({

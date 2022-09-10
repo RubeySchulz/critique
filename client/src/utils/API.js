@@ -1,6 +1,6 @@
 export const getWord = () => fetch('https://random-word-form.herokuapp.com/random/noun');
 
-export const getImage = async (word) => {
+export const getImage = async (word, count) => {
     const options = {
         method: 'GET',
         headers: {
@@ -10,10 +10,11 @@ export const getImage = async (word) => {
     };
     let image;
 
-    await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${word}&mkt=en-US&count=1`, options)
+    await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${word}&mkt=en-US&count=${count}`, options)
     .then(response => response.json())
     .then(response => {
-        image =  response.value[0].contentUrl
+        const i = count - 1; 
+        image =  response.value[i].contentUrl
     })
 	.catch(err => console.error(err));
     
