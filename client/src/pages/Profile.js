@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import TierList from '../components/TierList';
 import Nav from '../components/Navbar';
+import Footer from '../components/Footer';
 
 import { QUERY_ME, QUERY_GET_USER } from '../utils/queries';
 import auth from '../utils/auth';
@@ -55,6 +56,7 @@ function Profile() {
                 <h2>Reviews: {user.reviews.length}</h2>
                 <TierList reviews={user.reviews}/>
             </div>
+            <Footer />
         </>
     )
 }

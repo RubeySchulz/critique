@@ -21,9 +21,24 @@ header {
   padding-top: 10px;
 }
 
+footer {
+  background-color: white;
+  height: 2vh;
+  margin-top: 8vh!important;
+  padding: 10px 0;
+}
+
+footer a {
+  color: black;
+}
+
 .flex {
   display:flex;
   flex-wrap: wrap;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .justify-content-between {
@@ -64,6 +79,10 @@ header {
 
 .inline {
   display: inline;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .logo {
