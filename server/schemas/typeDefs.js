@@ -23,7 +23,10 @@ const typeDefs = gql`
         username: String
         email: String
         password: String
+        title: String
         reviews: [Review]
+        followers: [User]
+        following: [User]
     }
 
     type Auth {
@@ -47,6 +50,8 @@ const typeDefs = gql`
         deleteDay(dayId: ID!): Day
         updateDay(dayId: ID!, image: String!, item: String!): Day
         deleteReview(reviewId: ID!): Review
+        followUser(followId: ID!): User
+        unfollowUser(unfollowId: ID!): User
     }
 `;
 

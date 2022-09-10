@@ -23,12 +23,31 @@ const userSchema = new Schema(
             minlength: 5
         },
 
+        title: {
+            type: String,
+            enum: [' The Stinkster', ' Esquire', '-sama', '-sensei', ' The Esteemed', ' Pure Bitch-made']
+        },
+
         reviews: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Review'
             }
-        ]
+        ],
+
+        followers: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }
+        ],
+
+        following: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }
+        ],
     },
     {
         toJSON: {
