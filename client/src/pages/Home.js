@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Nav from '../components/Navbar';
+import Footer from '../components/Footer';
 import ReviewList from '../components/ReviewList';
 
 import blackstar from '../assets/black-star.png';
@@ -170,7 +171,7 @@ function Home() {
                 </div>
                 }
             </div>
-            
+            <Footer />
         </>
     )    
 };
