@@ -73,6 +73,10 @@ header {
 
 /*--------------------------------- Home Styling */
 
+form textarea {
+  min-height: 200px;
+}
+
 .daily-image {
   position: relative
 }

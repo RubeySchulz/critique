@@ -18,6 +18,7 @@ function Home() {
 
     const [reviewContent, setReviewContent] = useState({ body: '', starRating: null, user: '', day: '' });
     const [addReview] = useMutation(ADD_REVIEW);
+    const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
     const [currentReviews, setReviewState] = useState([]);
 
@@ -27,10 +28,19 @@ function Home() {
             await checkDay().then(async response => {
                 if(response !== undefined){
                     const number = await getDayNumber();      
+                    const user = auth.getProfile().data._id
 
                     setInfo({ word: response.item, image: response.image, length: number });
-                    setReviewContent({ ...reviewContent, day: response._id, user: auth.getProfile().data._id })
+                    setReviewContent({ ...reviewContent, day: response._id, user: user })
                     setCurrentReviews(response.reviews);
+                    const check = response.reviews.filter(review => {
+                        if(review.user._id === user){
+                            return review
+                        }
+                    });
+                    if(check[0].body) {
+                        setReviewSubmitted(true);
+                    }
                 }
             });
 
@@ -45,7 +55,6 @@ function Home() {
     };
 
     const starLogic = (id) => {
-
         let starNumber = id
         starNumber = parseInt(starNumber.split('star')[1]);
 
@@ -109,9 +118,11 @@ function Home() {
             console.error(e);
         }
 
-        setReviewContent({ ...reviewContent, body: '', starRating: null });
-        setInitialStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
-        setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+        // setReviewContent({ ...reviewContent, body: '', starRating: null });
+        // setInitialStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+        // setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
+
+        setReviewSubmitted(true);
     };
 
     const brokenImg = async () => {
@@ -133,6 +144,7 @@ function Home() {
                     <img onError={brokenImg} className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
                     <h1 className='image-text-center'>{info.word}</h1>
                 </div>
+                {!reviewSubmitted ?
                 <div className='row'>
                     <form className='twelve columns' onSubmit={submitReview}>
                         <div>
@@ -151,10 +163,12 @@ function Home() {
                             </div>
                         </div>
                     </form>
-                </div>    
+                </div>  
+                : 
                 <div className='row justify-content-center'>
                     <ReviewList reviews={currentReviews} />
                 </div>
+                }
             </div>
             
         </>
