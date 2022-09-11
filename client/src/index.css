@@ -85,6 +85,10 @@ footer a {
   display: inline-block;
 }
 
+.no-pointer {
+  pointer-events: none;
+}
+
 .logo {
   filter:invert();
   height: 84px;
@@ -149,8 +153,12 @@ form textarea {
 
 /*--------------------------------- tier-list-styling */
 
-.tier-list {
-  justify-content:center;
+:root {
+  --tier-item-size: 175px;
+}
+
+.tier-row {
+  transition: height 0.5s;
 }
 
 .tier-list .row {
@@ -161,53 +169,106 @@ form textarea {
 .tier-label {
   border-right: 2px white solid;
   margin-right: 5px;
-  height: 180px;
-  align-self: center;
-  align-items: center;
+  align-self: stretch;
   justify-content: center;
 }
 
 .tier-label img {
   width:35px;
   height:35px;
+  user-select: none;
 }
 
 .tier-list .item-image {
+  float: right;
+  user-select: none;
+  box-sizing: border-box;
   object-fit: cover;
-  height: 175px;
-  width: 175px;
-  filter: blur(5px) brightness(50%);
+  height: var(--tier-item-size);
+  width: var(--tier-item-size);
+  transition: height 0.5s, width 0.5s, filter 0.5s;
+  filter: brightness(50%);
   z-index: -1;
+  pointer-events: none;
   
-}
-.tier-list h6, .border {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.border {
-  min-width: 100%;
-  min-height: 100%;
-  z-index: 1;
-  float: none;
-  box-shadow:0px 0px 0px 5px black inset;
-  border: 1px black solid
 }
 
 .tier-item {
   position: relative;
-  margin: 0 10px;
+  width: var(--tier-item-size);
+  max-height: var(--tier-item-size);
+  background-color: white;
+  margin: 2px 10px;
+  border: 0;
+
+  transition: max-height 0.5s, width 0.5s, border 0.5s;
 }
 
 .tier-list h6 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+
   font-size: 3rem;
+  font-weight: 100;
   color: white;
+  pointer-events: none;
+  left: 50%;
+  transition: color 0.5s, left 0.5s, top 0.5s, transform 0.5s, font-size 0.5s, font-weight 0.5s;
+}
+
+.tier-item.clicked {
+  width: 75%;
+  max-height: calc(var(--tier-item-size) + 20px);
+}
+
+.clicked .item-image {
+  height: calc(var(--tier-item-size) + 20px) ;
+  width: calc(var(--tier-item-size) + 20px);
+  filter: none;
+}
+
+.clicked h6 {
+  color: #000000;
+  font-size: 5rem;
+  left:2%;
+  top: -5%;
+  transform: none;
+  font-weight: bold;
 }
 
 .tier-content {
   width: 100%;
+}
+
+.extra-info {
+  visibility: hidden;
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  max-width: calc(4 * var(--tier-item-size));
+  height: calc(var(--tier-item-size) / 2);
+  
+}
+
+.clicked .extra-info {
+  visibility: visible;
+}
+
+.extra-info p {
+  opacity: 0;
+  font-size: 2.5rem;
+  font-style: italic;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.clicked .extra-info p {
+  opacity: 1;
 }
 
 #tierFive {
