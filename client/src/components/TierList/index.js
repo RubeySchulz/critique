@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import blackstar from '../../assets/white-star.png';
 
 function TierList({ reviews }) {
@@ -18,11 +18,27 @@ function TierList({ reviews }) {
     const oneStarReviews = reviews.filter(review => {
         if(review.starRating === 1){return review}
     });
+
+    const [clickedItem, setClicked] = useState(null)
+
+    const clickHandler = (e) => {
+        if(clickedItem != null){
+            const old = document.getElementById(clickedItem);
+            old.className ='tier-item'
+        }
+
+        if(e.target.id === clickedItem){
+            setClicked(null);
+            return;
+        }
+        setClicked(e.target.id)
+        e.target.className = 'tier-item clicked';
+    }
     
     return (
         <div>
             <section className='container-full tier-list'>
-                <div id='tierFive' className='row flex'>
+                <div id='tierFive' className='row flex tier-row'>
                     <div className='tier-label row two columns flex'>
                         <img src={blackstar} alt='star'></img>
                         <img src={blackstar} alt='star'></img>
@@ -33,17 +49,20 @@ function TierList({ reviews }) {
                     <div className='tier-content row ten columns flex'>
                         {fiveStarReviews && 
                             fiveStarReviews.map(review => (
-                                <div key={review._id} className='tier-item'>
-                                    <div className='border'></div>
-                                    <img src={review.day.image} className='item-image' alt='item image'></img>
+                                <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     
-                                    <h6>{review.day.item}</h6>
+                                    <img src={review.day.image} className='item-image inline' alt='item image'></img>
+                                    <h6>{review.day.item}</h6>    
+                                    
+                                    <div className='extra-info no-pointer'>
+                                        <p className='no-pointer'>“{review.body}„</p>
+                                    </div>
                                 </div>
                             ))
                         }    
                     </div>
                 </div>
-                <div id='tierFour' className='row twelve columns flex'>
+                <div id='tierFour' className='row flex tier-row'>
                     <div className='tier-label row two columns flex'>
                         <img src={blackstar} alt='star'></img>
                         <img src={blackstar} alt='star'></img>
@@ -53,17 +72,19 @@ function TierList({ reviews }) {
                     <div className='tier-content row ten columns flex'>
                         {fourStarReviews && 
                             fourStarReviews.map(review => (
-                                <div key={review._id} className='tier-item'>
-                                    <div className='border'></div>
+                                <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    
                                     <h6>{review.day.item}</h6>
+
+                                    <div className='extra-info no-pointer'>
+                                        <p className='no-pointer'>“{review.body}„</p>
+                                    </div>
                                 </div>
                             ))
                         }    
                     </div>
                 </div>
-                <div id='tierThree' className='row twelve columns flex'>
+                <div id='tierThree' className='row flex tier-row'>
                     <div className='tier-label row two columns flex'>
                         <img src={blackstar} alt='star'></img>
                         <img src={blackstar} alt='star'></img>
@@ -72,17 +93,19 @@ function TierList({ reviews }) {
                     <div className='tier-content row ten columns flex'>
                         {threeStarReviews && 
                             threeStarReviews.map(review => (
-                                <div key={review._id} className='tier-item'>
-                                    <div className='border'></div>
+                                <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    
                                     <h6>{review.day.item}</h6>
+
+                                    <div className='extra-info no-pointer'>
+                                        <p className='no-pointer'>“{review.body}„</p>
+                                    </div>
                                 </div>
                             ))
                         }    
                     </div>
                 </div>
-                <div id='tierTwo' className='row twelve columns flex'>
+                <div id='tierTwo' className='row flex tier-row'>
                     <div className='tier-label row two columns flex'>
                         <img src={blackstar} alt='star'></img>
                         <img src={blackstar} alt='star'></img>
@@ -90,32 +113,41 @@ function TierList({ reviews }) {
                     <div className='tier-content row ten columns flex'>
                         {twoStarReviews && 
                             twoStarReviews.map(review => (
-                                <div key={review._id} className='tier-item'>
-                                    <div className='border'></div>
+                                <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    
                                     <h6>{review.day.item}</h6>
+
+                                    <div className='extra-info no-pointer'>
+                                        <p className='no-pointer'>“{review.body}„</p>
+                                    </div>
                                 </div>
                             ))
                         }    
                     </div>
                 </div>
-                <div id='tierOne' className='row twelve columns flex'>
+                <div id='tierOne' className='row flex tier-row'>
                     <div className='tier-label row two columns flex'>
                         <img src={blackstar} alt='star'></img>
                     </div>
                     <div className='tier-content row ten columns flex'>
                         {oneStarReviews && 
                             oneStarReviews.map(review => (
-                                <div key={review._id} className='tier-item'>
-                                    <div className='border'></div>
+                                <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    
                                     <h6>{review.day.item}</h6>
+
+                                    <div className='extra-info no-pointer'>
+                                        <p className='no-pointer'>“{review.body}„</p>
+                                    </div>
                                 </div>
                             ))
                         }    
                     </div>
+                </div>
+            </section>
+            <section className='item-info'>
+                <div>
+                    
                 </div>
             </section>
         </div>
