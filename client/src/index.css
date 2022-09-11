@@ -196,12 +196,12 @@ form textarea {
 
 .tier-item {
   position: relative;
-  width: var(--tier-item-size);
+  flex-basis:0;
   max-height: var(--tier-item-size);
   background-color: white;
-  margin: 2px 10px;
+  margin: 4px 10px;
 
-  transition: max-height var(--transition-time), width var(--transition-time), border var(--transition-time);
+  transition: max-height var(--transition-time), flex-basis var(--transition-time), border var(--transition-time);
 }
 
 .tier-list h6 {
@@ -220,14 +220,14 @@ form textarea {
 }
 
 .tier-item.clicked {
+  flex-basis:calc(3 * (var(--tier-item-size) + 20px));
   z-index: 1000;
-  width: 95%;
-  max-height: calc(var(--tier-item-size) * 2);
+  max-height: calc(var(--tier-item-size) + 20px);
 }
 
 .clicked .item-image {
-  height: calc(var(--tier-item-size) * 2) ;
-  width: calc(var(--tier-item-size) * 2);
+  height: calc(var(--tier-item-size) + 20px) ;
+  width: calc(var(--tier-item-size) + 20px);
   filter: none;
 }
 
@@ -247,9 +247,9 @@ form textarea {
 .extra-info {
   visibility: hidden;
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 5%;
-  max-width: calc(4 * var(--tier-item-size));
+  max-width: calc(2 * (var(--tier-item-size)));
   height: calc(var(--tier-item-size) / 2);
   
 }
@@ -260,12 +260,14 @@ form textarea {
 
 .extra-info p {
   opacity: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-style: italic;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  transition: opacity 2s;
+  transition-delay: var(--transition-time);
 }
 
 .clicked .extra-info p {

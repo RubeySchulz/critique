@@ -27,8 +27,6 @@ function TierList({ reviews }) {
             old.className ='tier-item'
         }
 
-
-
         if(e.target.id === clickedItem){
             setClicked(null);
             return;
