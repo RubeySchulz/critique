@@ -66,3 +66,39 @@ export const UPDATE_DAY = gql`
         }
     }
 `;
+
+export const FOLLOW_USER = gql`
+    mutation FollowUser($followId: ID!) {
+        followUser(followId: $followId) {
+            _id
+            username
+            following {
+                _id
+                username
+            }
+
+            followers {
+                _id
+                username   
+            }
+        }
+    }
+`;
+
+export const UNFOLLOW_USER = gql`
+    mutation UnfollowUser($unfollowId: ID!) {
+            unfollowUser(unfollowId: $unfollowId) {
+            _id
+            username
+            following {
+                _id
+                username
+            }
+            
+            followers {
+                _id
+                username   
+            }
+        }
+    }
+`;

@@ -18,6 +18,14 @@ export const QUERY_ME = gql`
                     image
                 }
             }
+            following {
+                _id
+                username
+            }
+            followers {
+                _id
+                username
+            }
         }
     }
 `;
@@ -65,6 +73,14 @@ export const QUERY_GET_USER = gql`
                     item
                     image
                 }
+            }
+            following {
+                _id
+                username
+            }
+            followers {
+                _id
+                username
             }
         }
     }
