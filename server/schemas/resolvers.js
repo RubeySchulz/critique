@@ -159,7 +159,7 @@ const resolvers = {
                     { new: true }
                 );
         
-                return updatedUser;
+                return followed;
             }
         
             throw new AuthenticationError("You need to be logged in!");
@@ -179,7 +179,7 @@ const resolvers = {
                 { new: true }
                 );
         
-                return updatedUser;
+                return followed;
             }
         
             throw new AuthenticationError("You need to be logged in!");
