@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+let titles = require('../../client/src/assets/titles.json');
+
+titles = titles.titles
 
 const userSchema = new Schema(
     {
@@ -25,7 +28,7 @@ const userSchema = new Schema(
 
         title: {
             type: String,
-            enum: [' The Stinkster', ' Esquire', '-sama', '-sensei', ' The Esteemed', ' Pure Bitch-made']
+            enum: titles
         },
 
         reviews: [

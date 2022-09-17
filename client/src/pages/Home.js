@@ -30,7 +30,6 @@ function Home() {
                 if(response !== undefined){
                     const number = await getDayNumber();      
                     const user = auth.getProfile().data._id
-
                     setInfo({ word: response.item, image: response.image, length: number });
                     setReviewContent({ ...reviewContent, day: response._id, user: user })
                     setCurrentReviews(response.reviews);
@@ -119,10 +118,6 @@ function Home() {
             console.error(e);
         }
 
-        // setReviewContent({ ...reviewContent, body: '', starRating: null });
-        // setInitialStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
-        // setStars({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar });
-
         setReviewSubmitted(true);
     };
 
@@ -136,7 +131,7 @@ function Home() {
             <h1>Loading...</h1>
         )
     };
-
+    
     return (
         <>
             <Nav length={'#' + info.length}></Nav>

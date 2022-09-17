@@ -20,6 +20,7 @@ export const checkDay = async () => {
                     user {
                         _id
                         username
+                        title
                     }
                 }
             }

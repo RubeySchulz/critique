@@ -102,3 +102,14 @@ export const UNFOLLOW_USER = gql`
         }
     }
 `;
+
+export const UPDATE_USER = gql`
+    mutation UpdateUser($username: String!, $email: String, $title: String) {
+        updateUser(username: $username, email: $email, title: $title) {
+            _id
+            username
+            email
+            title
+        }
+    }
+`;
