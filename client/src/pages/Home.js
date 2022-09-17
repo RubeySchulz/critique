@@ -41,7 +41,6 @@ function Home() {
             if(data){
                 response = data.day
             }
-            console.log(response)
             if(response != undefined){
                 const number = await getDayNumber(response._id);      
                 const user = auth.getProfile().data._id
