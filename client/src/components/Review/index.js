@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import blackstar from '../../assets/black-star.png';
 import whitestar from '../../assets/white-star.png';
+import { Link } from 'react-router-dom';
 
 function Review({ data }) {
     const [star, setStar] = useState({ one: blackstar, two: whitestar, three: whitestar, four: whitestar, five: whitestar });
-    
+    let link = `/profile/${data.user.username}`;
+
     useEffect(() => {
         starHandler();
     }, []);
-
     
     const starHandler = () => {
         if(data.starRating >= 2){
@@ -45,7 +46,12 @@ function Review({ data }) {
 
     return (
         <div className="container d-flex flex-wrap">
-            <h1 className='row col-3'>{data.user.username}</h1>
+            <div className='row col-3'>
+                <Link className='no-decorate' to={link} >
+                    <h1 className='inline'>{data.user.username}</h1><h6 className='inline ml-3'>{data.user.title}</h6>  
+                </Link>
+            </div>
+            
             <div className='stars-review row col-9 p-0'>
                 <img src={star.one} alt='star'></img>
                 <img src={star.two} alt='star'></img>

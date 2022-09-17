@@ -96,7 +96,17 @@ const resolvers = {
             return { token, user };
         },
 
-        addReview: async (parent, args, context) => {
+        updateUser: async (parent, args, context) => {
+            const user = User.findOneAndUpdate(
+                { _id: context.user._id },
+                { ...args },
+                { new: true, runValidators: true }
+            )
+
+            return user;
+        },
+
+        addReview: async (parent, args) => {
             const review = await Review.create(args);
             const day = await Day.findOneAndUpdate(
                 { _id: args.day },
@@ -117,7 +127,7 @@ const resolvers = {
             return day;
         },
 
-        addDay: async (parent, args, context) => {
+        addDay: async (parent, args) => {
             const day = Day.create(args)
 
             return day;

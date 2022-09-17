@@ -7,18 +7,22 @@ import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import { QUERY_ME, QUERY_GET_USER } from '../utils/queries';
-import { FOLLOW_USER, UNFOLLOW_USER } from '../utils/mutations';
+import { FOLLOW_USER, UNFOLLOW_USER, UPDATE_USER } from '../utils/mutations';
 import { get_follow_info } from '../utils/userInfo';
 import auth from '../utils/auth';
 
+import titles from '../assets/titles.json';
+
 function Profile() {
+
     // get URL params
     const { username: userParam } = useParams();
 
     // button states and mutations
     const [ follow ] = useMutation(FOLLOW_USER);
     const [ unfollow ] = useMutation(UNFOLLOW_USER);
-    const [buttonState, setButtonState] = useState('Follow')
+    const [ updateUser ] = useMutation(UPDATE_USER);
+    const [buttonState, setButtonState] = useState('Follow');
 
     // check if user is following this profile
     useEffect(() => {
@@ -68,7 +72,7 @@ function Profile() {
                     variables: { followId: user._id }
                 });
 
-                user.followers = data.followUser.followers
+                user = {...user, followers: data.followUser.followers}
             } catch(e) {
                 
             }
@@ -80,7 +84,7 @@ function Profile() {
                     variables: { unfollowId: user._id }
                 });
 
-                user.followers = data.unfollowUser.followers
+                user = {...user, followers: data.followUser.followers}
             } catch(e) {
                 
             }
@@ -88,6 +92,19 @@ function Profile() {
             setButtonState('Follow');
         }
     }
+
+    const titleHandler = async (title) => {
+        try {
+            const { data } = await updateUser({
+                variables: { username: user.username, title}
+            })
+
+            user = { ...user, title: data.updateUser.title };
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     return (
         <>
             <Nav />
@@ -95,7 +112,20 @@ function Profile() {
                 <div className='profile-header container'>
                     <div className='row six columns'>
                         <h1 className='profile-name'>{user.username}</h1>
-                        <h5 className='ml-3'>The Esteemed</h5>    
+                        {userParam ? (
+                            <h5 className='ml-3'>{user.title && user.title}</h5> 
+                        ) : (
+                            <div className='title-dropdown'>
+                                <h5 className='ml-3'> {user.title ? user.title : 'pick a title silly guy...'} </h5>
+                                <div className='titles-list text-center'>
+                                    {titles.titles.map(title => (
+                                        <h6 key={title} onClick={() => titleHandler(title)}>{title}</h6>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                        )}
+                           
                     </div>
                     <div className='row six columns text-end'>
                         <h3>Followers: {user.followers.length}</h3>

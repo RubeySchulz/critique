@@ -6,6 +6,7 @@ export const QUERY_ME = gql`
             _id
             username
             email
+            title
             reviews {
                 _id
                 body
@@ -36,7 +37,7 @@ export const ALL_USERS = gql`
             _id
             username
             email
-            password
+            title
             reviews {
                 _id
                 body
@@ -62,6 +63,7 @@ export const QUERY_GET_USER = gql`
             _id
             username
             email
+            title
             reviews {
                 _id
                 body

@@ -69,6 +69,11 @@ footer a {
   pointer-events: none;
 }
 
+.no-decorate, .no-decorate:hover {
+  text-decoration: none;
+  color: black;
+}
+
 .logo {
   filter:invert();
   height: 84px;
@@ -136,7 +141,45 @@ form textarea {
 
 .profile-name {
   font-size: 10rem;
+  display: inline;
 }
+
+.title-dropdown {
+  display: inline;
+  position: relative;
+  width: min-content;
+}
+
+.titles-list {
+  display: none;
+  position: absolute;
+  background-color: #000000;
+  color: white;
+  left: 0;
+  top: 20px;
+  width: max-content;
+  z-index: 10;
+}
+
+.titles-list h6 {
+  margin: 0;
+  padding: 10px;
+  user-select: none;
+}
+
+.title-dropdown:hover {
+  width: auto;
+}
+
+.title-dropdown:hover .titles-list {
+  display: block;
+}
+
+.titles-list h6:hover {
+  background-color: #404040;
+}
+
+
 
 /*--------------------------------- tier-list-styling */
 
