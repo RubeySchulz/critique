@@ -142,13 +142,11 @@ export const fixImg = async (word, dayId) => {
     return img;
 }
 
-export const getDayNumber = async () => {
+export const getDayNumber = async (id) => {
     const getDays = JSON.stringify({
         query: `query Days {
             days {
                 _id
-                date
-                item
             }
         }`
     });
@@ -165,9 +163,16 @@ export const getDayNumber = async () => {
                 }
             }
         ).then(response => response.json()).then(json => json.data); 
-
+        
         if(data){
-            return data.days.length;
+            let number;
+            data.days.map((day, i) => {
+                if(day._id === id){
+                    number =  i + 1;
+                }
+            })
+            return number;    
+            
         }
     } catch(e) {
         console.error(e);

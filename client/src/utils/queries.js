@@ -89,7 +89,7 @@ export const QUERY_GET_USER = gql`
 `;
 
 export const GET_DAY = gql`
-    query Day($dayId: ID!) {
+    query Day($dayId: ID) {
         day(dayId: $dayId) {
             _id
             date
@@ -99,12 +99,12 @@ export const GET_DAY = gql`
                 _id
                 body
                 starRating
+                createdAt
                 user {
                     _id
                     username
+                    title
                 }
-                item
-                createdAt
             }
         }
     }
