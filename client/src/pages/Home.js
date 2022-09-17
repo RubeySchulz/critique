@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client';
+import { useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@apollo/client';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import ReviewList from '../components/ReviewList';
@@ -9,9 +10,17 @@ import whitestar from '../assets/white-star.png';
 
 import { checkDay, getDayNumber, fixImg } from '../utils/handleDays';
 import auth from '../utils/auth';
+import { GET_DAY } from '../utils/queries';
 import { ADD_REVIEW } from '../utils/mutations';
 
 function Home() {
+    const { id: dayId } = useParams();
+
+    const { loading, data } = useQuery(GET_DAY, {
+        variables: { dayId },
+        skip: !dayId
+    })
+
     const [info, setInfo] = useState({ word: '', image: '', length: 0 });
 
     const [initialStars, setInitialStars] = useState({ star1: whitestar, star2: whitestar, star3: whitestar, star4: whitestar, star5: whitestar })
@@ -24,33 +33,41 @@ function Home() {
     const [currentReviews, setReviewState] = useState([]);
 
     useEffect(() => {
-
-        const data = async () => {
-            await checkDay().then(async response => {
-                if(response !== undefined){
-                    const number = await getDayNumber();      
-                    const user = auth.getProfile().data._id
-                    setInfo({ word: response.item, image: response.image, length: number });
-                    setReviewContent({ ...reviewContent, day: response._id, user: user })
-                    setCurrentReviews(response.reviews);
-                    const check = response.reviews.filter(review => {
-                        if(review.user._id === user){
-                            return review
-                        }
-                    });
-                    if(check[0].body) {
-                        setReviewSubmitted(true);
+        const currentData = async () => {
+            let response;
+            if(!dayId){
+                response =  await checkDay()
+            }
+            if(data){
+                response = data.day
+            }
+            console.log(response)
+            if(response != undefined){
+                const number = await getDayNumber(response._id);      
+                const user = auth.getProfile().data._id
+                setInfo({ word: response.item, image: response.image, length: number });
+                setReviewContent({ ...reviewContent, day: response._id, user: user })
+                const check = response.reviews.filter(review => {
+                    if(review.user._id === user){
+                        return review
                     }
+                });
+                if(check[0].body) {
+                    setReviewSubmitted(true);
                 }
-            });
-
-            
+                setCurrentReviews(response.reviews);
+                
+            }
         }
-        data();
-    }, []);
+
+        currentData();
+    }, [data]);
 
     const setCurrentReviews = (reviews) => {
-        const sorted = reviews.sort().reverse();
+        const arrayForSort = [...reviews];
+        const sorted = arrayForSort.sort(
+            (A, B) => Number(B.createdAt) - Number(A.createdAt)
+        );
         setReviewState(sorted);
     };
 
@@ -131,6 +148,10 @@ function Home() {
             <h1>Loading...</h1>
         )
     };
+
+    if(loading){
+        return (<h1>loading</h1>)
+    }
     
     return (
         <>

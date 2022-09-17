@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import blackstar from '../../assets/white-star.png';
 
 function TierList({ reviews }) {
@@ -52,7 +53,7 @@ function TierList({ reviews }) {
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     
                                     <img src={review.day.image} className='item-image inline' alt='item image'></img>
-                                    <h6>{review.day.item}</h6>    
+                                    <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>  
                                     
                                     <div className='extra-info no-pointer'>
                                         <p className='no-pointer'>“{review.body}„</p>
@@ -74,7 +75,7 @@ function TierList({ reviews }) {
                             fourStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    <h6>{review.day.item}</h6>
+                                    <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
                                         <p className='no-pointer'>“{review.body}„</p>
@@ -95,7 +96,7 @@ function TierList({ reviews }) {
                             threeStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    <h6>{review.day.item}</h6>
+                                    <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
                                         <p className='no-pointer'>“{review.body}„</p>
@@ -115,7 +116,7 @@ function TierList({ reviews }) {
                             twoStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    <h6>{review.day.item}</h6>
+                                    <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
                                         <p className='no-pointer'>“{review.body}„</p>
@@ -132,9 +133,11 @@ function TierList({ reviews }) {
                     <div className='tier-content row ten columns flex'>
                         {oneStarReviews && 
                             oneStarReviews.map(review => (
+                                
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     <img src={review.day.image} className='item-image' alt='item image'></img>
-                                    <h6>{review.day.item}</h6>
+                                    <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
+                                    
 
                                     <div className='extra-info no-pointer'>
                                         <p className='no-pointer'>“{review.body}„</p>
