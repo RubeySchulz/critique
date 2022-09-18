@@ -19,6 +19,7 @@ header {
   color: white;
   padding: 0 30px;
   padding-top: 10px;
+  align-items: center;
 }
 
 footer {
@@ -77,6 +78,60 @@ footer a {
 .logo {
   filter:invert();
   height: 84px;
+}
+
+/*--------------------------------- Nav Styling */
+
+header img {
+  filter: invert();
+}
+
+header button {
+  border: 0;
+}
+
+.side-modal {
+  position: fixed;
+  background: black;
+  top:0;
+  left:-15vw;
+  height: 100vh;
+  width: 15vw;
+  
+  z-index: 1000;
+  transition: left 0.3s;
+}
+
+.side-modal.true {
+  left:0;
+  transition: left 0.3s;
+}
+
+.modal-content {
+  padding: 40px 30px;
+  
+  height: 100%;
+}
+
+.top-content, .search{
+  border-bottom: 1px white solid;
+}
+
+.search {
+  margin: 10px 10px;
+}
+
+.following-list {
+  color: white;
+  padding: 10px;
+}
+
+.following-list a {
+  color: white;
+}
+
+.follower:hover {
+  background-color: #141414;
 }
 
 /*--------------------------------- Home Styling */

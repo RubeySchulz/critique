@@ -124,7 +124,7 @@ export const fixImg = async (word, dayId) => {
 
 
     try {
-        const data = await fetch(
+        await fetch(
             '/graphql',
             {
                 method: 'post',

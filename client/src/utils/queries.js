@@ -22,27 +22,22 @@ export const QUERY_ME = gql`
             following {
                 _id
                 username
+                title
             }
             followers {
                 _id
                 username
+                title
             }
         }
     }
 `;
 
 export const ALL_USERS = gql`
-    query Users {
-        users {
-            _id
+    query Users($username: String) {
+        users(username: $username) {
             username
-            email
             title
-            reviews {
-                _id
-                body
-                starRating
-            }
         }
     }
 `;
