@@ -22,8 +22,8 @@ const resolvers = {
             throw new AuthenticationError('Not logged in');
         },
 
-        users: async () => {
-            return User.find()
+        users: async (parent, {username}) => {
+            return User.find({ username: { $regex: username, $options: 'i'}})
             .populate('reviews')
             .populate('followers')
                     .populate('following')

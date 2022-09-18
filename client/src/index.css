@@ -94,7 +94,7 @@ header button {
   position: fixed;
   background: black;
   top:0;
-  left:0vw;
+  left:-15vw;
   height: 100vh;
   width: 15vw;
   
@@ -109,13 +109,30 @@ header button {
 
 .modal-content {
   padding: 40px 30px;
+  
   height: 100%;
 }
 
-.modal-content input {
-  
+.top-content, .search{
+  border-bottom: 1px white solid;
 }
 
+.search {
+  margin: 10px 10px;
+}
+
+.following-list {
+  color: white;
+  padding: 10px;
+}
+
+.following-list a {
+  color: white;
+}
+
+.follower:hover {
+  background-color: #141414;
+}
 
 /*--------------------------------- Home Styling */
 

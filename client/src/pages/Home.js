@@ -41,7 +41,7 @@ function Home() {
             if(data){
                 response = data.day
             }
-            if(response != undefined){
+            if(response !== undefined){
                 const number = await getDayNumber(response._id);      
                 const user = auth.getProfile().data._id
                 setInfo({ word: response.item, image: response.image, length: number });
@@ -50,6 +50,7 @@ function Home() {
                     if(review.user._id === user){
                         return review
                     }
+                    return null;
                 });
                 if(check[0].body) {
                     setReviewSubmitted(true);
