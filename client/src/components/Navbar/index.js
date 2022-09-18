@@ -12,6 +12,7 @@ function Nav({ length }) {
     const [search, setSearch] = useState();
 
     const {data} = useQuery(QUERY_ME);
+    
     const [loadSearch, {loading, data: searchData}] = useLazyQuery(ALL_USERS, {
         variables: { username: search },
         skip: !search

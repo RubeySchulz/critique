@@ -87,7 +87,7 @@ function Profile() {
                 const { data } = await unfollow({
                     variables: { unfollowId: user._id }
                 });
-
+                
                 user = {...user, followers: data.followUser.followers}
             } catch(e) {
                 
