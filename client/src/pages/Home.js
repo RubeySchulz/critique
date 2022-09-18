@@ -61,7 +61,7 @@ function Home() {
         }
 
         currentData();
-    }, [data]);
+    }, [data, dayId, reviewContent]);
 
     const setCurrentReviews = (reviews) => {
         const arrayForSort = [...reviews];

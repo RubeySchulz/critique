@@ -12,7 +12,7 @@ function Nav({ length }) {
     const [search, setSearch] = useState();
 
     const {data} = useQuery(QUERY_ME);
-    const [loadSearch, {loading, error, data: searchData}] = useLazyQuery(ALL_USERS, {
+    const [loadSearch, {loading, data: searchData}] = useLazyQuery(ALL_USERS, {
         variables: { username: search },
         skip: !search
     });
@@ -37,7 +37,7 @@ function Nav({ length }) {
     return (
     <>
         <header className='flex flex-wrap justify-content-between'>
-            <button onClick={() => setModal(!modalState)}><img src={menu} /></button>
+            <button onClick={() => setModal(!modalState)}><img src={menu} alt='hamburger button' /></button>
             
             <div>
                 <Link to='/'>

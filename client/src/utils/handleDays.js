@@ -166,7 +166,7 @@ export const getDayNumber = async (id) => {
         
         if(data){
             let number;
-            data.days.map((day, i) => {
+            data.days.forEach((day, i) => {
                 if(day._id === id){
                     number =  i + 1;
                 }

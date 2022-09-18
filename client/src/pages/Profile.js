@@ -24,26 +24,30 @@ function Profile() {
     const [ updateUser ] = useMutation(UPDATE_USER);
     const [buttonState, setButtonState] = useState('Follow');
 
-    // check if user is following this profile
-    useEffect(() => {
-        const getInfo = async () => {
-            const info = await get_follow_info(auth.getProfile().data.username);
-
-            info.following.map(following => {
-                if(following.username === userParam){
-                    setButtonState('Unfollow');
-                }
-            })
-            
-        };
-        getInfo();
-    })
-
     // get user information and assing it to 'user'
-    const { loading, error, data } = useQuery(userParam ? QUERY_GET_USER : QUERY_ME, {
+    const { loading, data } = useQuery(userParam ? QUERY_GET_USER : QUERY_ME, {
         variables: { username: userParam }
     })
     let user = data?.user || data?.me || {};
+
+    // check if user is following this profile
+    useEffect(() => {
+        setButtonState('Follow');
+        const getInfo = async () => {
+            const info = await get_follow_info(auth.getProfile().data.username);
+            for(let i of info.following){
+                if(i.username === userParam){
+                    setButtonState('Unfollow');
+                    break;
+                }
+            }
+            
+        };
+        getInfo();
+        
+    }, [userParam])
+
+    
 
     // renavigate to user profile page if trying to access your own profile
     if(auth.loggedIn() && auth.getProfile().data.username === userParam) {
