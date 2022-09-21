@@ -143,7 +143,7 @@ const resolvers = {
             const day = Day.findOneAndUpdate(
                 { _id: dayId },
                 { image, item },
-                { new: true }
+                { new: true, runValidators: true }
             );
 
             return day;
@@ -193,6 +193,64 @@ const resolvers = {
             }
         
             throw new AuthenticationError("You need to be logged in!");
+        },
+
+        addReply: async (parent, { reviewId, body }, context) => {
+            if(context.user){
+                const updatedReview = await Review.findOneAndUpdate(
+                    { _id: reviewId },
+                    { $push: { replies: { user: context.user._id, body } } },
+                    { new: true, runValidators: true }
+                ).populate({
+                    path: 'replies',
+                    populate: { path: 'user',
+                                model: 'User'}
+                }).populate('user');
+
+                return updatedReview;
+            }
+        },
+
+        deleteReply: async (parent, { reviewId, replyId }) => {
+            const updatedReview = await Review.findOneAndUpdate(
+                { _id: reviewId },
+                { $pull: {replies: {_id: replyId } } },
+                { new: true }
+            ).populate({
+                path: 'replies',
+                populate: { path: 'user',
+                            model: 'User'}
+            }).populate('user');
+
+            return updatedReview;
+        },
+
+        likeReview: async (parent, { reviewId }) => {
+            const updatedReview = await Review.findOneAndUpdate(
+                { _id: reviewId },
+                { $inc: { likes: 1 } },
+                { new: true }
+            ).populate({
+                path: 'replies',
+                populate: { path: 'user',
+                            model: 'User'}
+            }).populate('user');
+
+            return updatedReview;
+        },
+
+        unlikeReview: async (parent, { reviewId }) => {
+            const updatedReview = await Review.findOneAndUpdate(
+                { _id: reviewId },
+                { $inc: { likes: -1 } },
+                { new: true }
+            ).populate({
+                path: 'replies',
+                populate: { path: 'user',
+                            model: 'User'}
+            }).populate('user');
+
+            return updatedReview;
         },
     }
     

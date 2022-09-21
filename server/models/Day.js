@@ -18,7 +18,8 @@ const daySchema = new Schema(
 
         image: {
             type: String,
-            required: true,
+            uppercase: true,
+            required: true
         },
 
         reviews: [
