@@ -9,7 +9,7 @@ import menu from '../../assets/menu-30.svg'
 
 function Nav({ length }) {
     const [modalState, setModal] = useState(false);
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState('');
 
     const {data} = useQuery(QUERY_ME);
     
@@ -32,7 +32,9 @@ function Nav({ length }) {
     const searchChange = (e) => {
         e.preventDefault();
         setSearch(e.target.value)
-        loadSearch();
+        if(search.length > 1){
+            loadSearch();
+        }
     }
 
     return (
@@ -62,7 +64,7 @@ function Nav({ length }) {
                     <input type='text' placeholder='Find Critics' value={search} onChange={searchChange}></input>
                     <div className='following-list'>
                         {loading && (<h3>loading...</h3>)}
-                        {search && !loading && searchData.users.map(user => (
+                        {searchData && searchData.users.map(user => (
                             <div key={user.username}>
                                 <Link to={'/profile/'.concat(user.username)} >
                                     <h4>{user.username}</h4>
