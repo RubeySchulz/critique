@@ -4,20 +4,18 @@ import blackstar from '../../assets/white-star.png';
 
 function TierList({ reviews }) {
     
-    const fiveStarReviews = reviews.filter(review => {
-        if(review.starRating === 5){return review}
-    });
-    const fourStarReviews = reviews.filter(review => {
-        if(review.starRating === 4){return review}
-    });
-    const threeStarReviews = reviews.filter(review => {
-        if(review.starRating === 3){return review}
-    });
-    const twoStarReviews = reviews.filter(review => {
-        if(review.starRating === 2){return review}
-    });
-    const oneStarReviews = reviews.filter(review => {
-        if(review.starRating === 1){return review}
+    let fiveStarReviews = [];
+    let fourStarReviews = [];
+    let threeStarReviews = [];
+    let twoStarReviews = [];
+    let oneStarReviews = [];
+
+    reviews.forEach(review => {
+        if(review.starRating === 5){fiveStarReviews.push(review)}
+        if(review.starRating === 4){fourStarReviews.push(review)}
+        if(review.starRating === 3){threeStarReviews.push(review)}
+        if(review.starRating === 2){twoStarReviews.push(review)}
+        if(review.starRating === 1){oneStarReviews.push(review)}
     });
 
     const [clickedItem, setClicked] = useState(null)
@@ -52,7 +50,7 @@ function TierList({ reviews }) {
                             fiveStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
                                     
-                                    <img src={review.day.image} className='item-image inline' alt='item image'></img>
+                                    <img src={review.day.image} className='item-image inline' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>  
                                     
                                     <div className='extra-info no-pointer'>
@@ -74,7 +72,7 @@ function TierList({ reviews }) {
                         {fourStarReviews && 
                             fourStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
-                                    <img src={review.day.image} className='item-image' alt='item image'></img>
+                                    <img src={review.day.image} className='item-image' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
@@ -95,7 +93,7 @@ function TierList({ reviews }) {
                         {threeStarReviews && 
                             threeStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
-                                    <img src={review.day.image} className='item-image' alt='item image'></img>
+                                    <img src={review.day.image} className='item-image' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
@@ -115,7 +113,7 @@ function TierList({ reviews }) {
                         {twoStarReviews && 
                             twoStarReviews.map(review => (
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
-                                    <img src={review.day.image} className='item-image' alt='item image'></img>
+                                    <img src={review.day.image} className='item-image' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
 
                                     <div className='extra-info no-pointer'>
@@ -135,7 +133,7 @@ function TierList({ reviews }) {
                             oneStarReviews.map(review => (
                                 
                                 <div key={review._id} className='tier-item' id={review._id} onClick={clickHandler}>
-                                    <img src={review.day.image} className='item-image' alt='item image'></img>
+                                    <img src={review.day.image} className='item-image' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>
                                     
 

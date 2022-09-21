@@ -61,7 +61,7 @@ function Home() {
         }
 
         currentData();
-    }, [data]);
+    }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const setCurrentReviews = (reviews) => {
         const arrayForSort = [...reviews];
