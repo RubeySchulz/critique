@@ -9,7 +9,7 @@ function Review({ data }) {
 
     useEffect(() => {
         starHandler();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     
     const starHandler = () => {
         if(data.starRating >= 2){
@@ -59,7 +59,9 @@ function Review({ data }) {
                 <img src={star.four} alt='star'></img>
                 <img src={star.five} alt='star'></img>
             </div>
-            <h4 className='row col-12'>{data.body}</h4>
+            <Link className='no-decorate' to={'/review/'.concat(data._id)}>
+                <h4 className='row col-12'>{data.body}</h4>
+            </Link>
         </div>
     )
 }

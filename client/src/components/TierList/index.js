@@ -53,8 +53,10 @@ function TierList({ reviews }) {
                                     <img src={review.day.image} className='item-image inline' alt='item'></img>
                                     <Link to={'/past/'.concat(review.day._id)}><h6>{review.day.item}</h6></Link>  
                                     
-                                    <div className='extra-info no-pointer'>
-                                        <p className='no-pointer'>“{review.body}„</p>
+                                    <div className='extra-info'>
+                                        <Link className='no-decorate' to={'/review/'.concat(review._id)}>
+                                            <p>“{review.body}„</p>
+                                        </Link>
                                     </div>
                                 </div>
                             ))

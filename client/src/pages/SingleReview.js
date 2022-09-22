@@ -7,7 +7,6 @@ import Nav from '../components/Navbar';
 import Review from '../components/Review';
 import Reply from '../components/Reply';
 
-import auth from '../utils/auth';
 import { GET_REVIEW } from '../utils/queries';
 import { ADD_REPLY } from '../utils/mutations';
 
@@ -26,18 +25,19 @@ function SingleReview() {
 
         setReviewContent(value);
     };
-    console.log(data);
+
     const submitReview = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await addReply({
+            await addReply({
                 variables: { reviewId, body: reviewContent }
             })
 
-            console.log(data);
         } catch(e) {
             console.error(e);
         }
+
+        setReviewContent('');
     }
 
     if(loading){
@@ -52,7 +52,7 @@ function SingleReview() {
                     <Review data={data.review}></Review>
                 </div>
                 <form onSubmit={submitReview}>
-                    <textarea className='twelve columns reply' name='body' placeholder='give em a piece of your mind' value={reviewContent.body} onChange={reviewChange}></textarea>
+                    <input type='text' className='twelve columns reply' name='body' placeholder='give em a piece of your mind' value={reviewContent.body} onChange={reviewChange}></input>
                     <button type='submit'>Submit</button>
                 </form>
                 <div className='container'>

@@ -136,8 +136,8 @@ header button {
 
 /*--------------------------------- Home Styling */
 
-form textarea {
-  min-height: 200px;
+textarea.home {
+  height: 200px;
 }
 
 .daily-image {
@@ -385,9 +385,7 @@ form textarea {
   border-top: 1px solid black;
 }
 
-textarea.reply {
-  min-height: 100px;
-}
+
 
 
 /* -------------------- BOOTSTRAP MARGINS AND PADDING SHORTCUTS */
