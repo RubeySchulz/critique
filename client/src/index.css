@@ -379,6 +379,16 @@ form textarea {
   background-color: #d9d9d9;
 }
 
+/* -------------------- SINGLE REVIEW STYLING */
+
+.border-top {
+  border-top: 1px solid black;
+}
+
+textarea.reply {
+  min-height: 100px;
+}
+
 
 /* -------------------- BOOTSTRAP MARGINS AND PADDING SHORTCUTS */
 

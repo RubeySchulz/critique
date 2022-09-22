@@ -69,6 +69,17 @@ const resolvers = {
                 }) 
             }
             return undefined;
+        },
+
+        review: async(parent, { reviewId }) => {
+            return Review.findOne({ _id: reviewId})
+            .populate({
+                path: 'replies',
+                populate: { path: 'user',
+                            model: 'User'}
+            })
+            .populate('user')
+            .populate('day');
         }
     },
 

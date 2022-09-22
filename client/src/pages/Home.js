@@ -182,7 +182,7 @@ function Home() {
                     </form>
                 </div>  
                 : 
-                <div className='row justify-content-center'>
+                <div className=' container row justify-content-center'>
                     <ReviewList reviews={currentReviews} />
                 </div>
                 }

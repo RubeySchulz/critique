@@ -113,3 +113,43 @@ export const UPDATE_USER = gql`
         }
     }
 `;
+
+export const ADD_REPLY = gql`
+    mutation AddReply($reviewId: ID!, $body: String!) {
+        addReply(reviewId: $reviewId, body: $body) {
+            _id
+            body
+            user {
+                username
+            }
+            replies {
+                _id
+                body
+                user {
+                username
+                _id
+                }
+            }
+            likes
+        }
+    }
+`;
+
+export const DELETE_REPLY = gql`
+    mutation DeleteReply($reviewId: ID!, $replyId: ID!) {
+        deleteReply(reviewId: $reviewId, replyId: $replyId) {
+            _id
+            body
+            starRating
+            replies {
+                _id
+                body
+                user {
+                    _id
+                    username
+                }
+            }
+            likes
+        }
+    }
+`

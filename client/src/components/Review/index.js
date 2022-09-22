@@ -45,7 +45,7 @@ function Review({ data }) {
     }
 
     return (
-        <div className="container d-flex flex-wrap">
+        <div className="d-flex flex-wrap">
             <div className='row col-3'>
                 <Link className='no-decorate' to={link} >
                     <h1 className='inline'>{data.user.username}</h1><h6 className='inline ml-3'>{data.user.title}</h6>  

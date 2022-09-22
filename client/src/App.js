@@ -5,6 +5,7 @@ import Authorization from './pages/Authorization';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import SingleReview from './pages/SingleReview';
 
 // Apollo Imports
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -51,7 +52,8 @@ function App() {
               <Route path=':username' element={<Profile />} />
               <Route path='' element={<Profile />} />
             </Route>
-            <Route path='/past/:id' element={<Home />}></Route>
+            <Route path='/past/:id' element={<Home />} />
+            <Route path='/review/:id' element={<SingleReview />} />
           </Route>
         </Routes>
       </Router>  

@@ -49,6 +49,8 @@ const typeDefs = gql`
         user(username: String!): User
         days: [Day]
         day(dayId: ID, date: String): Day
+
+        review(reviewId: ID!): Review
     }
 
     type Mutation {

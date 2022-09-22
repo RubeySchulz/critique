@@ -103,4 +103,33 @@ export const GET_DAY = gql`
             }
         }
     }
-`
+`;
+
+export const GET_REVIEW = gql`
+    query Review($reviewId: ID!) {
+        review(reviewId: $reviewId) {
+            _id
+            body
+            starRating
+            user {
+                _id
+                username
+            }
+            createdAt
+            day {
+                item
+                date
+                image
+            }
+            replies {
+                _id
+                body
+                user {
+                _id
+                username
+                }
+            }
+            likes
+        }
+    }
+`;
