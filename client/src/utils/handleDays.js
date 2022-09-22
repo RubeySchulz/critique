@@ -105,7 +105,7 @@ export const checkDay = async () => {
 };
 
 export const fixImg = async (word, dayId) => {
-    const img = await getImage(word, 2)
+    const img = await getImage(word, 3)
 
     const fixData = JSON.stringify({
         query: `mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {
@@ -124,7 +124,7 @@ export const fixImg = async (word, dayId) => {
 
 
     try {
-        await fetch(
+        const {data} = await fetch(
             '/graphql',
             {
                 method: 'post',
@@ -135,6 +135,7 @@ export const fixImg = async (word, dayId) => {
                 }
             }
         ).then(postResponse => postResponse.json()).then(postJson => postJson);
+        console.log(data);
     } catch (e){
         console.error(e)
     }
