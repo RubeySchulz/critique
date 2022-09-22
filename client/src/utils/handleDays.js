@@ -1,6 +1,6 @@
 const { getWord, getImage } = require('./API');
 const dateFormat = require('./dateFormat');
-
+const { getMeta } = require('../utils/imgValidation');
 
 
 export const checkDay = async () => {
@@ -50,8 +50,15 @@ export const checkDay = async () => {
 
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
-                const word = data[0];
+                let word = data[0];
                 let image = await getImage(word, 1);
+                let imgData = await getMeta(image);
+                while(imgData.width < 600 || imgData.height < 600){
+                    let num = 2;
+                    image = await getImage(word, num);
+                    num++;
+                }
+
                 return {word, image};
             });
 
@@ -104,8 +111,8 @@ export const checkDay = async () => {
     }
 };
 
-export const fixImg = async (word, dayId) => {
-    const img = await getImage(word, 3)
+export const fixImg = async (word, dayId, i) => {
+    const img = await getImage(word, i)
 
     const fixData = JSON.stringify({
         query: `mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {
