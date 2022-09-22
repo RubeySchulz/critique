@@ -183,7 +183,7 @@ function Home() {
                 </div>  
                 : 
                 <div className=' container row justify-content-center'>
-                    <ReviewList reviews={currentReviews} />
+                    <ReviewList reviews={currentReviews} item={info.word} />
                 </div>
                 }
             </div>

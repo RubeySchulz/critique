@@ -2,7 +2,7 @@ import React from 'react';
 import Review from '../Review';
 
 
-function ReviewList({ reviews }) {
+function ReviewList({ reviews, item }) {
     if(!reviews.length){
         return <h3>No reviews yet</h3>
     }
@@ -11,7 +11,7 @@ function ReviewList({ reviews }) {
             <h1>Reviews</h1>
             {reviews.map(review => (
                 <div key={review._id}>
-                    <Review data={review} />
+                    <Review data={review} item={item} />
                 </div>
             ))}
         </div>

@@ -51,6 +51,13 @@ const userSchema = new Schema(
                 ref: 'User',
             }
         ],
+
+        liked: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Review'
+            }
+        ]
     },
     {
         toJSON: {

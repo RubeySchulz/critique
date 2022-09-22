@@ -29,9 +29,24 @@ export const QUERY_ME = gql`
                 username
                 title
             }
+            liked {
+                _id
+            }
         }
     }
 `;
+
+export const QUERY_ME_LIKED = gql`
+    query Me {
+        me {
+            _id
+            liked {
+                _id
+                body
+            }
+        }
+    }
+`
 
 export const ALL_USERS = gql`
     query Users($username: String) {
@@ -100,6 +115,7 @@ export const GET_DAY = gql`
                     username
                     title
                 }
+                likes
             }
         }
     }
@@ -114,6 +130,7 @@ export const GET_REVIEW = gql`
             user {
                 _id
                 username
+                title
             }
             createdAt
             day {

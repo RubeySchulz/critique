@@ -152,4 +152,23 @@ export const DELETE_REPLY = gql`
             likes
         }
     }
-`
+`;
+
+export const LIKE_REVIEW = gql`
+    mutation LikeReview($reviewId: ID!) {
+        likeReview(reviewId: $reviewId) {
+            _id
+            body
+            likes
+        }
+    }
+`;
+
+export const UNLIKE_REVIEW = gql`
+    mutation UnlikeReview($reviewId: ID!) {
+        unlikeReview(reviewId: $reviewId) {
+            _id
+            likes
+        }
+    }
+`;

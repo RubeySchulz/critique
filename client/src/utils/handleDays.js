@@ -22,6 +22,7 @@ export const checkDay = async () => {
                         username
                         title
                     }
+                    likes
                 }
             }
         }`,
@@ -75,6 +76,7 @@ export const checkDay = async () => {
                                 _id
                                 username
                             }
+                            likes
                         }
 
                     }

@@ -36,6 +36,7 @@ const typeDefs = gql`
         reviews: [Review]
         followers: [User]
         following: [User]
+        liked: [Review]
     }
 
     type Auth {

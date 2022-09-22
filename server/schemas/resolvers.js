@@ -16,6 +16,7 @@ const resolvers = {
                     })
                     .populate('followers')
                     .populate('following')
+                    .populate('liked')
                 return userData;    
             }
 
@@ -26,7 +27,8 @@ const resolvers = {
             return User.find({ username: { $regex: username, $options: 'i'}})
             .populate('reviews')
             .populate('followers')
-                    .populate('following')
+            .populate('following')
+            .populate('liked')
         },
         
         user: async(parent, { username }) => {
@@ -40,6 +42,7 @@ const resolvers = {
             })
             .populate('followers')
             .populate('following')
+            .populate('liked')
         },
 
         days: async () => {
@@ -236,7 +239,7 @@ const resolvers = {
             return updatedReview;
         },
 
-        likeReview: async (parent, { reviewId }) => {
+        likeReview: async (parent, { reviewId }, context) => {
             const updatedReview = await Review.findOneAndUpdate(
                 { _id: reviewId },
                 { $inc: { likes: 1 } },
@@ -247,10 +250,15 @@ const resolvers = {
                             model: 'User'}
             }).populate('user');
 
+            const user = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { liked: reviewId } }
+            )
+
             return updatedReview;
         },
 
-        unlikeReview: async (parent, { reviewId }) => {
+        unlikeReview: async (parent, { reviewId }, context) => {
             const updatedReview = await Review.findOneAndUpdate(
                 { _id: reviewId },
                 { $inc: { likes: -1 } },
@@ -260,6 +268,11 @@ const resolvers = {
                 populate: { path: 'user',
                             model: 'User'}
             }).populate('user');
+
+            const user = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { liked: reviewId } }
+            )
 
             return updatedReview;
         },
