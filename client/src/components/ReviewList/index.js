@@ -8,7 +8,6 @@ function ReviewList({ reviews, item }) {
     }
     return (
         <div>
-            <h1>Reviews</h1>
             {reviews.map(review => (
                 <div key={review._id}>
                     <Review review={review} item={item} />
