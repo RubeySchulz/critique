@@ -11,7 +11,7 @@ function ReviewList({ reviews, item }) {
             <h1>Reviews</h1>
             {reviews.map(review => (
                 <div key={review._id}>
-                    <Review data={review} item={item} />
+                    <Review review={review} item={item} />
                 </div>
             ))}
         </div>

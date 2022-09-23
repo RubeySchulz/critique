@@ -57,7 +57,7 @@ function SingleReview() {
         <>
             <Nav></Nav>
             <div className='container'>
-                <Review data={data.review}></Review>
+                <Review review={data.review}></Review>
                 <div className='row four columns'>
                     <h1>{data.review.day.item}</h1>
                 </div>
