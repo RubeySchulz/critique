@@ -8,12 +8,11 @@ import ReviewList from '../components/ReviewList';
 import blackstar from '../assets/black-star.png';
 import whitestar from '../assets/white-star.png';
 
-import { checkDay, getDayNumber, fixImg } from '../utils/handleDays';
+import { checkDay, getDayNumber } from '../utils/handleDays';
 import auth from '../utils/auth';
 import { GET_DAY } from '../utils/queries';
 import { ADD_REVIEW } from '../utils/mutations';
 
-import { getMeta } from '../utils/imgValidation';
 
 function Home() {
     // grabs parameters
@@ -28,7 +27,7 @@ function Home() {
     const [addReview] = useMutation(ADD_REVIEW);
     const [reviewSubmitted, setReviewSubmitted] = useState();
     // state for current reviews, and popular reviews. same list different sorting
-    const [currentReviews, setReviewState] = useState([]);
+    const [recentReviews, setRecentReviews] = useState([]);
     const [popularReviews, setPopularReviews] = useState([]);
 
     // loads all of the Day data
@@ -80,20 +79,21 @@ function Home() {
                 setReviewSubmitted(false);
             }
             console.log(data.day.reviews)
-            setCurrentReviews(data.day.reviews);     
+            setCurrentReviews(data.day.reviews);
         }
     }, [data, reviewSubmitted]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Sorts reviews whenever the reviews list is updated
     const setCurrentReviews = (reviews) => {
-        const arrayForSort = [...reviews];
-        const sorted = arrayForSort.sort(
-            (A, B) => Number(B.createdAt) - Number(A.createdAt)
+        const recentForSort = [...reviews];
+        const recentSorted = recentForSort.sort((A, B) => 
+            (A.createdAt < B.createdAt) ? 1 : (B.createdAt < A.createdAt) ? -1 : 0
         );
-        setReviewState(sorted);
+        setRecentReviews(recentSorted);
 
-        const popularSorted = arrayForSort.sort(
-            (A, B) => Number(B.likes) - Number(A.likes)
+        const popularForSort = [...reviews];
+        const popularSorted = popularForSort.sort((A, B) => 
+            (A.likes < B.likes) ? 1 : (B.likes < A.likes) ? -1 : 0
         )
         setPopularReviews(popularSorted);
     };
@@ -207,7 +207,7 @@ function Home() {
                 <div>
                     <div className='row six columns justify-content-center'>
                         <h1>Recent Reviews</h1>
-                        <ReviewList reviews={currentReviews} item={info.word} />
+                        <ReviewList reviews={recentReviews} item={info.word} />
                     </div>
                     <div className='row six columns justify-content-center'>
                         <h1>Popular Reviews</h1>
