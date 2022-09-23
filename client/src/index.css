@@ -1,10 +1,16 @@
 body {
+  background-color: var(--background-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+:root {
+  --background-color: rgb(255, 255, 255);
+  --font-color: black;
+  --header-color: rgb(0, 0, 0);
 }
 
 /* code {
@@ -15,7 +21,7 @@ body {
 /*--------------------------------- General Rules */
 
 header {
-  background-color: black;
+  background-color: var(--header-color);
   color: white;
   padding: 0 30px;
   padding-top: 10px;
@@ -23,7 +29,6 @@ header {
 }
 
 footer {
-  background-color: white;
   height: 2vh;
   margin-top: 8vh!important;
   padding: 10px 0;
@@ -170,6 +175,11 @@ textarea.home {
   object-fit: cover;
   height: 800px;
   z-index: -1;
+}
+
+.review-list {
+  border-bottom: 1px solid black;
+
 }
 
 /*--------------------------------- profile-styling */
@@ -381,28 +391,31 @@ textarea.home {
 
 /* -------------------- SINGLE REVIEW STYLING */
 
-.border-top {
-  border-top: 1px solid black;
+.border-bottom {
+  border-bottom: 1px solid black;
 }
 
-button.like {
-  border: 0;
-  padding: 0;
-  font-size: 2rem;
-}
-
-button.like img {
-  width: 3rem;
+.review-title {
+  font-size: 7.5rem;
+  font-weight: bold;
 }
 
 img.review {
   object-fit: cover;
-  height: 300px;
+  width: 100%;
+  height: 40rem;
   z-index: -1;
 }
 
 .singlereview {
   position: relative;
+}
+
+textarea.reply {
+  background-color: var(--background-color);
+  border: 1px solid #000000;
+  min-height: 100px;
+  width: 100%;
 }
 
 .singlereviewcontent {
@@ -413,6 +426,17 @@ img.review {
 }
 
 
+/* -------------------- REPLY STYLING */
+
+button.like {
+  border: 0;
+  padding: 0;
+  font-size: 2rem;
+}
+
+button.like img {
+  width: 3rem;
+}
 
 /* -------------------- BOOTSTRAP MARGINS AND PADDING SHORTCUTS */
 

@@ -53,22 +53,31 @@ function SingleReview() {
     return (
         <>
             <Nav></Nav>
-            <div className='container'>
-                <Review review={data.review}></Review>
-                <div className='row four columns'>
-                    <h1>{data.review.day.item}</h1>
-                </div>
-                <form className='row twelve columns' onSubmit={submitReview}>
-                    <input type='text' className='twelve columns reply' name='body' placeholder='give em a piece of your mind' value={reviewContent.body} onChange={reviewChange}></input>
-                    <button type='submit'>Submit</button>
-                </form>
-                <div className='container'>
-                    {data.review.replies.length > 0 && data.review.replies.map(reply => (
-                        <div className='border-top' key={reply._id}>
-                            <Reply reply={reply} reviewId={data.review._id}></Reply>
-                        </div>
-                    ))}
-                </div>
+            <div className='container mt-5'>
+                <section className='row border-bottom'>
+                    <div className='row three columns mb-3'>
+                        <img className='review' src={data.review.day.image} alt='review'></img>
+                        <h1 className='text-center review-title' >{data.review.day.item}</h1>
+                    </div>
+                    <div className='row nine columns ml-5'>
+                        <Review review={data.review}></Review>
+                        <form onSubmit={submitReview}>
+                            <textarea className='reply' name='body' placeholder='give em a piece of your mind' value={reviewContent} onChange={reviewChange}></textarea>
+                            <button type='submit'>Submit</button>
+                        </form>
+                    </div>    
+                </section>
+                
+                <section className='offset-by-three nine columns'>
+                    <div className=''>
+                        {data.review.replies.length > 0 && data.review.replies.map(reply => (
+                            <div className='border-bottom' key={reply._id}>
+                                <Reply reply={reply} reviewId={data.review._id}></Reply>
+                            </div>
+                        ))}
+                    </div>    
+                </section>
+                
             </div>
         </>
     )

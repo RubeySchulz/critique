@@ -9,7 +9,7 @@ function ReviewList({ reviews, item }) {
     return (
         <div>
             {reviews.map(review => (
-                <div key={review._id}>
+                <div key={review._id} className={!window.location.href.includes('review') && 'border-bottom'}>
                     <Review review={review} item={item} />
                 </div>
             ))}
