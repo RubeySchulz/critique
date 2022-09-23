@@ -130,7 +130,7 @@ function Review({ review, item }) {
                 )}
                 <button className='like' onClick={likeHandler}><img src={likeState} alt='like'></img></button>
                 <button className='like ml-5' onClick={() => {
-                    navigator.clipboard.writeText('"' + data.body + '" - ' + data.user.username + ' ' + new Date().getFullYear() + ', critique of ' + word + '. \n www.critique.daily')
+                    navigator.clipboard.writeText('"' + data.body + '" - ' + data.user.username + ' ' + new Date().getFullYear() + ', critique of ' + word + '. \n https://critiquedaily.herokuapp.com/')
                     setCopied('Copied!');
                 }
                 }>{copied}</button>
