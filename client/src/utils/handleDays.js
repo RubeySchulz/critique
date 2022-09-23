@@ -22,6 +22,7 @@ export const checkDay = async () => {
                         username
                         title
                     }
+                    likes
                 }
             }
         }`,
@@ -51,6 +52,7 @@ export const checkDay = async () => {
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
                 let word = data[0];
+                word = word.charAt(0).toUpperCase() + word.slice(1)
                 let image = await getImage(word, 1);
                 let imgData = await getMeta(image);
                 while(imgData.width < 600 || imgData.height < 600){
@@ -81,6 +83,7 @@ export const checkDay = async () => {
                                 _id
                                 username
                             }
+                            likes
                         }
 
                     }

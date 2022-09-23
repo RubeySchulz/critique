@@ -136,8 +136,8 @@ header button {
 
 /*--------------------------------- Home Styling */
 
-form textarea {
-  min-height: 200px;
+textarea.home {
+  height: 200px;
 }
 
 .daily-image {
@@ -150,7 +150,7 @@ form textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   color: aliceblue;
-  font-size: 10.0rem;
+  font-size: 20.0rem;
 }
 
 .stars img {
@@ -378,6 +378,40 @@ form textarea {
 #tierOne {
   background-color: #d9d9d9;
 }
+
+/* -------------------- SINGLE REVIEW STYLING */
+
+.border-top {
+  border-top: 1px solid black;
+}
+
+button.like {
+  border: 0;
+  padding: 0;
+  font-size: 2rem;
+}
+
+button.like img {
+  width: 3rem;
+}
+
+img.review {
+  object-fit: cover;
+  height: 300px;
+  z-index: -1;
+}
+
+.singlereview {
+  position: relative;
+}
+
+.singlereviewcontent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 
 /* -------------------- BOOTSTRAP MARGINS AND PADDING SHORTCUTS */

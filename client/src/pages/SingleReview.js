@@ -7,6 +7,7 @@ import Nav from '../components/Navbar';
 import Review from '../components/Review';
 import Reply from '../components/Reply';
 
+
 import { GET_REVIEW } from '../utils/queries';
 import { ADD_REPLY } from '../utils/mutations';
 
@@ -14,30 +15,36 @@ function SingleReview() {
 
     const { id: reviewId } = useParams();
     const [reviewContent, setReviewContent] = useState('')
+
     const [addReply] = useMutation(ADD_REPLY);
 
     const {loading, data} = useQuery(GET_REVIEW, {
         variables: { reviewId }
     });
 
+
     const reviewChange = (e) => {
         const {value} = e.target;
 
         setReviewContent(value);
     };
-    console.log(data);
+
     const submitReview = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await addReply({
+            await addReply({
                 variables: { reviewId, body: reviewContent }
             })
 
-            console.log(data);
         } catch(e) {
             console.error(e);
         }
+
+        setReviewContent('');
     }
+
+    
+
 
     if(loading){
         return (<h1>Loading</h1>)
@@ -47,11 +54,12 @@ function SingleReview() {
         <>
             <Nav></Nav>
             <div className='container'>
-                <div>
-                    <Review data={data.review}></Review>
+                <Review review={data.review}></Review>
+                <div className='row four columns'>
+                    <h1>{data.review.day.item}</h1>
                 </div>
-                <form onSubmit={submitReview}>
-                    <textarea className='twelve columns reply' name='body' placeholder='give em a piece of your mind' value={reviewContent.body} onChange={reviewChange}></textarea>
+                <form className='row twelve columns' onSubmit={submitReview}>
+                    <input type='text' className='twelve columns reply' name='body' placeholder='give em a piece of your mind' value={reviewContent.body} onChange={reviewChange}></input>
                     <button type='submit'>Submit</button>
                 </form>
                 <div className='container'>

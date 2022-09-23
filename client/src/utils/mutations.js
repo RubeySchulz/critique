@@ -113,3 +113,62 @@ export const UPDATE_USER = gql`
         }
     }
 `;
+
+export const ADD_REPLY = gql`
+    mutation AddReply($reviewId: ID!, $body: String!) {
+        addReply(reviewId: $reviewId, body: $body) {
+            _id
+            body
+            user {
+                username
+            }
+            replies {
+                _id
+                body
+                user {
+                username
+                _id
+                }
+            }
+            likes
+        }
+    }
+`;
+
+export const DELETE_REPLY = gql`
+    mutation DeleteReply($reviewId: ID!, $replyId: ID!) {
+        deleteReply(reviewId: $reviewId, replyId: $replyId) {
+            _id
+            body
+            starRating
+            replies {
+                _id
+                body
+                user {
+                    _id
+                    username
+                }
+            }
+            likes
+        }
+    }
+`;
+
+export const LIKE_REVIEW = gql`
+    mutation LikeReview($reviewId: ID!) {
+        likeReview(reviewId: $reviewId) {
+            _id
+            body
+            likes
+        }
+    }
+`;
+
+export const UNLIKE_REVIEW = gql`
+    mutation UnlikeReview($reviewId: ID!) {
+        unlikeReview(reviewId: $reviewId) {
+            _id
+            likes
+        }
+    }
+`;

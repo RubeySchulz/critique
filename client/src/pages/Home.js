@@ -170,7 +170,7 @@ function Home() {
                 <div className='row'>
                     <form className='twelve columns' onSubmit={submitReview}>
                         <div>
-                            <textarea className='twelve columns' name='body' placeholder='What are you thinkin pal?' value={reviewContent.body} onChange={reviewChange}></textarea>    
+                            <textarea className='twelve columns home' name='body' placeholder='What are you thinkin pal?' value={reviewContent.body} onChange={reviewChange}></textarea>    
                         </div>
                         <div className='row'>
                             <div className=' six columns stars'>
@@ -187,8 +187,8 @@ function Home() {
                     </form>
                 </div>  
                 : 
-                <div className='row justify-content-center'>
-                    <ReviewList reviews={currentReviews} />
+                <div className=' container row justify-content-center'>
+                    <ReviewList reviews={currentReviews} item={info.word} />
                 </div>
                 }
             </div>
