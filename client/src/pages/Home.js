@@ -143,6 +143,11 @@ function Home() {
         setInfo({ ...info, image: fixedImg });
     }
 
+    const load = async () => {
+        
+    
+    }
+
     if(!info.word || !info.image){
         return (
             <h1>Loading...</h1>
@@ -158,7 +163,7 @@ function Home() {
             <Nav length={'#' + info.length}></Nav>
             <div className='container'>
                 <div className='row text-center daily-image mt-3 mb-3'>
-                    <img onError={brokenImg} className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
+                    <img onLoad={load} onError={brokenImg} className='main-image twelve columns' src={info.image} alt='currentDayImage'></img>
                     <h1 className='image-text-center'>{info.word}</h1>
                 </div>
                 {!reviewSubmitted ?

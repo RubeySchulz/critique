@@ -1,6 +1,6 @@
 const { getWord, getImage } = require('./API');
 const dateFormat = require('./dateFormat');
-
+const { getMeta } = require('../utils/imgValidation');
 
 
 export const checkDay = async () => {
@@ -54,6 +54,13 @@ export const checkDay = async () => {
                 let word = data[0];
                 word = word.charAt(0).toUpperCase() + word.slice(1)
                 let image = await getImage(word, 1);
+                let imgData = await getMeta(image);
+                while(imgData.width < 600 || imgData.height < 600){
+                    let num = 2;
+                    image = await getImage(word, num);
+                    num++;
+                }
+
                 return {word, image};
             });
 
@@ -107,8 +114,8 @@ export const checkDay = async () => {
     }
 };
 
-export const fixImg = async (word, dayId) => {
-    const img = await getImage(word, 2)
+export const fixImg = async (word, dayId, i) => {
+    const img = await getImage(word, i)
 
     const fixData = JSON.stringify({
         query: `mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {
@@ -127,7 +134,7 @@ export const fixImg = async (word, dayId) => {
 
 
     try {
-        await fetch(
+        const {data} = await fetch(
             '/graphql',
             {
                 method: 'post',
@@ -138,6 +145,7 @@ export const fixImg = async (word, dayId) => {
                 }
             }
         ).then(postResponse => postResponse.json()).then(postJson => postJson);
+        console.log(data);
     } catch (e){
         console.error(e)
     }

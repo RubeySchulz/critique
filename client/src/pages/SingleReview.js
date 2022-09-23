@@ -16,17 +16,13 @@ function SingleReview() {
     const { id: reviewId } = useParams();
     const [reviewContent, setReviewContent] = useState('')
 
-
     const [addReply] = useMutation(ADD_REPLY);
-
-
-    
 
     const {loading, data} = useQuery(GET_REVIEW, {
         variables: { reviewId }
     });
 
-    
+
     const reviewChange = (e) => {
         const {value} = e.target;
 
@@ -48,6 +44,7 @@ function SingleReview() {
     }
 
     
+
 
     if(loading){
         return (<h1>Loading</h1>)
