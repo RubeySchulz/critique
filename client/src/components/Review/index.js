@@ -16,6 +16,8 @@ function Review({ review, item }) {
     const [likeState, setLiked] = useState(notliked);
     const [copied, setCopied] = useState('Share');
 
+    
+
     useEffect(() => {
         starHandler();
         setData(review);
@@ -26,6 +28,8 @@ function Review({ review, item }) {
     const [unlikeReview] = useMutation(UNLIKE_REVIEW);
     
     useEffect(() => {
+        // check if you are on a single review page
+        console.log(window.location.href.includes('review'))
         if(meData){
             setLiked(notliked)
             meData.me.liked.forEach(like => {
@@ -102,14 +106,14 @@ function Review({ review, item }) {
     return (
         
         <div className="d-flex flex-wrap">
-            <div className='row col-3'>
+            <div>
                 <Link className='no-decorate' to={'/profile/'.concat(data.user.username)} >
                     <h1 className='inline'>{data.user.username}</h1><h6 className='inline ml-3 mr-3'>{data.user.title}</h6>  
                 </Link>
                 
             </div>
             
-            <div className='stars-review row col-9 p-0'>
+            <div className='stars-review p-0'>
                 <img src={star.one} alt='star'></img>
                 <img src={star.two} alt='star'></img>
                 <img src={star.three} alt='star'></img>

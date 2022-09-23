@@ -78,7 +78,6 @@ function Home() {
             } catch(e) {
                 setReviewSubmitted(false);
             }
-            console.log(data.day.reviews)
             setCurrentReviews(data.day.reviews);
         }
     }, [data, reviewSubmitted]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -206,12 +205,17 @@ function Home() {
                 :
                 <div>
                     <div className='row six columns justify-content-center'>
-                        <h1>Recent Reviews</h1>
-                        <ReviewList reviews={recentReviews} item={info.word} />
+                        <h1 className=' review-list pb-2'>Recent Reviews</h1>
+                        <div className='container'>
+                            <ReviewList reviews={recentReviews} item={info.word} />
+                        </div>
                     </div>
                     <div className='row six columns justify-content-center'>
-                        <h1>Popular Reviews</h1>
-                        <ReviewList reviews={popularReviews} item={info.word} />
+                        <h1 className=' review-list pb-2'>Popular Reviews</h1>
+                        <div className='container'>
+                            <ReviewList reviews={popularReviews} item={info.word} />
+                        </div>
+                        
                     </div>    
                 </div>
                 
