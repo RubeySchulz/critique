@@ -12,18 +12,6 @@ export const checkDay = async () => {
                 date
                 item
                 image
-                reviews {
-                    _id
-                    body
-                    starRating
-                    createdAt
-                    user {
-                        _id
-                        username
-                        title
-                    }
-                    likes
-                }
             }
         }`,
         variables: `{
@@ -31,7 +19,6 @@ export const checkDay = async () => {
         }`,
     });
 
-    
     
     try{
         const data = await fetch(
@@ -51,13 +38,19 @@ export const checkDay = async () => {
 
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
-                let word = data[0];
+                // let word = data[0];
+                let word = 'Dawn';
                 word = word.charAt(0).toUpperCase() + word.slice(1)
                 let image = await getImage(word, 1);
                 let imgData = await getMeta(image);
-                while(imgData.width < 600 || imgData.height < 600){
+
+                console.log(imgData);
+                console.log('hiii')
+                while( imgData === null || imgData.width < 600 || imgData.height < 600 ){
                     let num = 2;
+                    console.log('error case ran')
                     image = await getImage(word, num);
+                    imgData = await getMeta(image);
                     num++;
                 }
 
@@ -74,17 +67,6 @@ export const checkDay = async () => {
                         date
                         item
                         image
-                        reviews {
-                            _id
-                            body
-                            starRating
-                            createdAt
-                            user {
-                                _id
-                                username
-                            }
-                            likes
-                        }
 
                     }
                 }`,
@@ -114,8 +96,8 @@ export const checkDay = async () => {
     }
 };
 
-export const fixImg = async (word, dayId, i) => {
-    const img = await getImage(word, i)
+export const fixImg = async (word, dayId) => {
+    const img = await getImage(word, 2)
 
     const fixData = JSON.stringify({
         query: `mutation UpdateDay($dayId: ID!, $image: String!, $item: String!) {

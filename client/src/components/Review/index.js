@@ -18,6 +18,7 @@ function Review({ review, item }) {
 
     useEffect(() => {
         starHandler();
+        setData(review);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const {data: meData, refetch} = useQuery(QUERY_ME_LIKED);
@@ -99,6 +100,7 @@ function Review({ review, item }) {
     }
 
     return (
+        
         <div className="d-flex flex-wrap">
             <div className='row col-3'>
                 <Link className='no-decorate' to={'/profile/'.concat(data.user.username)} >
@@ -119,7 +121,9 @@ function Review({ review, item }) {
                 <h4 className='row twelve columns'>{data.body}</h4>
             </Link>
             <section className='inline'>
-                <h5 className='inline mr-3'>{data.likes}</h5>
+                {data.likes !== undefined && (
+                    <h5 className='inline mr-3'>{data.likes}</h5>
+                )}
                 <button className='like' onClick={likeHandler}><img src={likeState} alt='like'></img></button>
                 <button className='like ml-5' onClick={() => {
                     navigator.clipboard.writeText('"' + data.body + '" - ' + data.user.username + ' ' + new Date().getFullYear() + ', critique of ' + word + '. \n www.critique.daily')
