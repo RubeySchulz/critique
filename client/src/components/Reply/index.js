@@ -10,11 +10,9 @@ function Reply({ reply, reviewId }) {
 
     const deleteHandler = async () => {
         try {
-            const { data } = deleteReply({
+            deleteReply({
                 variables: { reviewId, replyId: reply._id }
             })
-
-            console.log(data);
         } catch(e) {
             console.error(e);
         }
@@ -27,7 +25,7 @@ function Reply({ reply, reviewId }) {
                     <h1 className='inline'>{reply.user.username}</h1><h6 className='inline ml-3'>{reply.user.title}</h6>  
                 </Link>
                 {auth.getProfile().data._id === reply.user._id && (
-                    <button onClick={deleteHandler}>delete</button>
+                    <button className='ml-2' onClick={deleteHandler}>delete</button>
                 )}
             </div>
             <h4>{reply.body}</h4>

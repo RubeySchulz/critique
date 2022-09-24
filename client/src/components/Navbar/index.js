@@ -6,12 +6,14 @@ import { useQuery, useLazyQuery } from '@apollo/client';
 
 import { QUERY_ME, ALL_USERS } from '../../utils/queries';
 import menu from '../../assets/menu-30.svg'
+import aw from '../../assets/aw.mp4';
 
 function Nav({ length }) {
     const [modalState, setModal] = useState(false);
     const [search, setSearch] = useState('');
+    const [video, setVideo] = useState(false);
 
-    const {data} = useQuery(QUERY_ME);
+    const {data, refetch} = useQuery(QUERY_ME);
     
     const [loadSearch, {loading, data: searchData}] = useLazyQuery(ALL_USERS, {
         variables: { username: search },
@@ -21,9 +23,10 @@ function Nav({ length }) {
     let following = data?.me.following || [];
 
     useEffect(() => {
+        refetch();
         const modal = document.getElementById('side-modal')
         modal.className = 'side-modal ' + modalState;
-    }, [modalState])
+    }, [modalState, refetch])
 
     const logout = () => {
         auth.logout();
@@ -37,21 +40,24 @@ function Nav({ length }) {
         }
     }
 
+    const playVideo = () => {
+        setVideo(true);
+    }
+
     return (
     <>
+        {video && (
+            <video id='vid' className='video' controls loop autoplay><source src={aw} type='video/mp4' /></video>
+        )}
         <header className='flex flex-wrap justify-content-between'>
-            <button onClick={() => setModal(!modalState)}><img src={menu} alt='hamburger button' /></button>
-            
+            <button onClick={() => setModal(!modalState)}><img src={menu} alt='hamburger' /></button>
             <div>
                 <Link to='/'>
                     <img className='logo' src={logo} alt='logo'/>
-                    
                 </Link>   
-                <h4 className='inline'> {length}</h4>
+                <h4 className='inline no-select length'> {length}</h4>    
             </div>
-            <Link to='/' onClick={logout} >
-                <h1>Logout</h1>
-            </Link>
+            <button onClick={playVideo} className='ooo-whats-this no-decorate'></button>
         </header>
 
         <div id='side-modal' className='side-modal' onMouseLeave={() => setModal(!modalState)}>
@@ -91,6 +97,9 @@ function Nav({ length }) {
                         </div>
                     ))}
                 </div>
+                <Link className='logout' to='/' onClick={logout} >
+                    <h1>Logout</h1>
+                </Link>
             </div>
         </div>
     </>

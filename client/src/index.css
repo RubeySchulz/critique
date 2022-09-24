@@ -55,6 +55,10 @@ footer a {
   justify-content: end;
 }
 
+.justify-content-left {
+  justify-content: left;
+}
+
 .text-center {
   text-align: center;
 }
@@ -73,6 +77,10 @@ footer a {
 
 .no-pointer {
   pointer-events: none;
+}
+
+.no-select {
+  user-select: none;
 }
 
 .no-decorate, .no-decorate:hover {
@@ -113,6 +121,7 @@ header button {
 }
 
 .modal-content {
+  position: relative;
   padding: 40px 30px;
   
   height: 100%;
@@ -137,6 +146,27 @@ header button {
 
 .follower:hover {
   background-color: #141414;
+}
+
+.length {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.logout {
+  position: absolute;
+  bottom: 6%;
+}
+
+.ooo-whats-this {
+  width: 20px;
+  height: 20px;
+}
+
+.video {
+  position: absolute;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
 }
 
 /*--------------------------------- Home Styling */
