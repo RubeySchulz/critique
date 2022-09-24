@@ -16,8 +16,6 @@ function Review({ review, item }) {
     const [likeState, setLiked] = useState(notliked);
     const [copied, setCopied] = useState('Share');
 
-    
-
     useEffect(() => {
         starHandler();
         setData(review);
@@ -28,8 +26,6 @@ function Review({ review, item }) {
     const [unlikeReview] = useMutation(UNLIKE_REVIEW);
     
     useEffect(() => {
-        // check if you are on a single review page
-        console.log(window.location.href.includes('review'))
         if(meData){
             setLiked(notliked)
             meData.me.liked.forEach(like => {
@@ -121,16 +117,20 @@ function Review({ review, item }) {
                 <img src={star.five} alt='star'></img>
                 
             </div>
+            {window.location.href.includes('review') ? (
+            <h4 className='row twelve columns'>{data.body}</h4>
+            ) : (
             <Link className='no-decorate' to={'/review/'.concat(data._id)}>
                 <h4 className='row twelve columns'>{data.body}</h4>
-            </Link>
+            </Link>    
+            )}
             <section className='inline'>
                 {data.likes !== undefined && (
                     <h5 className='inline mr-3'>{data.likes}</h5>
                 )}
                 <button className='like' onClick={likeHandler}><img src={likeState} alt='like'></img></button>
                 <button className='like ml-5' onClick={() => {
-                    navigator.clipboard.writeText('"' + data.body + '" - ' + data.user.username + ' ' + new Date().getFullYear() + ', critique of ' + word + '. \n https://critiquedaily.herokuapp.com/')
+                    navigator.clipboard.writeText('"' + data.body + '" - ' + data.user.username + ' ' + new Date().getFullYear() + ', critique of ' + word + `. \n https://critiquedaily.herokuapp.com/review/` + data._id)
                     setCopied('Copied!');
                 }
                 }>{copied}</button>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Nav from '../components/Navbar';
 import Review from '../components/Review';
@@ -56,8 +57,10 @@ function SingleReview() {
             <div className='container mt-5'>
                 <section className='row border-bottom'>
                     <div className='row three columns mb-3'>
-                        <img className='review' src={data.review.day.image} alt='review'></img>
-                        <h1 className='text-center review-title' >{data.review.day.item}</h1>
+                        <Link className='no-decorate' to={'/past/'.concat(data.review.day._id)}>
+                            <img className='review' src={data.review.day.image} alt='review'></img>
+                        </Link>
+                        <h1 className='text-center review-title no-select' >{data.review.day.item}</h1>
                     </div>
                     <div className='row nine columns ml-5'>
                         <Review review={data.review}></Review>

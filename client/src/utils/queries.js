@@ -132,18 +132,18 @@ export const GET_REVIEW = gql`
                 username
                 title
             }
-            createdAt
             day {
+                _id
                 item
-                date
                 image
             }
             replies {
                 _id
                 body
                 user {
-                _id
-                username
+                    _id
+                    username
+                    title
                 }
             }
             likes
