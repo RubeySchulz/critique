@@ -38,8 +38,7 @@ export const checkDay = async () => {
 
         } else {
             let info = await getWord().then(response => response.json()).then(async data => {
-                // let word = data[0];
-                let word = 'Dawn';
+                let word = data[0];
                 word = word.charAt(0).toUpperCase() + word.slice(1)
                 let image = await getImage(word, 1);
                 let imgData = await getMeta(image);

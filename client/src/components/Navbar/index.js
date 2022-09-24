@@ -78,7 +78,7 @@ function Nav({ length }) {
                 </div>
                 <div className='following-list'>
                     
-                    <h1>Followers:</h1>
+                    <h1>Following:</h1>
                     {following && following.map(follower => (
                         <div className='follower' key={follower._id}>
                             <Link to={'/profile/'.concat(follower.username)} >
