@@ -57,6 +57,23 @@ const userSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Review'
             }
+        ],
+
+        notifications: [
+            {
+                type: {
+                    type: String,
+                    enum: ['follower', 'reply'],
+                    required: true
+                },
+                _id: {
+                    type: String,
+                    required: true,
+                    unique: true
+                },
+                username: String,
+                body: String
+            }
         ]
     },
     {

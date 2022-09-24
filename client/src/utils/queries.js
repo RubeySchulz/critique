@@ -46,6 +46,20 @@ export const QUERY_ME_LIKED = gql`
             }
         }
     }
+`;
+
+export const QUERY_ME_NOTIFS = gql`
+    query Me {
+        me {
+            _id
+            notifications {
+                type
+                _id
+                username
+                body
+            }
+        }
+    }
 `
 
 export const ALL_USERS = gql`

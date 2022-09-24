@@ -1,31 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-const replySchema = new Schema(
-    {
-        body: {
-            type: String,
-            required: true
-        },
-
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        },
-
-        createdAt: {
-            type: Date,
-            required: true,
-            default: Date.now,
-        },
-    },
-    {
-        toJSON: {
-          getters: true
-        }
-    }
-)
-
 const reviewSchema = new Schema(
     {
         body: {
@@ -59,7 +33,12 @@ const reviewSchema = new Schema(
             ref: 'Day'
         },
 
-        replies: [replySchema]
+        replies: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Reply'
+            },
+        ]
     },
     {
         toJSON: {

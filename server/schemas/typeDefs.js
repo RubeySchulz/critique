@@ -1,11 +1,19 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+    type notification {
+        type: String
+        _id: ID
+        username: String
+        body: String
+    }
+
     type Reply {
         _id: ID
         body: String
         user: User
         createdAt: String
+        replies: [Reply]
     }
 
     type Day {
@@ -37,6 +45,7 @@ const typeDefs = gql`
         followers: [User]
         following: [User]
         liked: [Review]
+        notifications: [notification]
     }
 
     type Auth {
@@ -48,6 +57,7 @@ const typeDefs = gql`
         me: User
         users(username: String): [User]
         user(username: String!): User
+
         days: [Day]
         day(dayId: ID, date: String): Day
 
@@ -71,6 +81,8 @@ const typeDefs = gql`
         deleteReply(reviewId: ID!, replyId: ID!): Review
         likeReview(reviewId: ID!): Review
         unlikeReview(reviewId: ID!): Review
+
+        updateNotifs(notifId: String): User
     }
 `;
 
