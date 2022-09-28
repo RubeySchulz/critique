@@ -7,6 +7,9 @@ export const QUERY_ME = gql`
             username
             email
             title
+            notifications {
+                _id
+            }
             reviews {
                 _id
                 body
