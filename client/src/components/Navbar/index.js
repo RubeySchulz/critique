@@ -5,13 +5,14 @@ import auth from '../../utils/auth';
 import { useQuery, useLazyQuery } from '@apollo/client';
 
 import { QUERY_ME, ALL_USERS } from '../../utils/queries';
-import menu from '../../assets/menu-30.svg'
-import aw from '../../assets/aw.mp4';
+import menu from '../../assets/menu-30.svg';
+import notificationIcon from '../../assets/notification.png'
+import notificationAlertIcon from '../../assets/notification-active.png';
 
 function Nav({ length }) {
     const [modalState, setModal] = useState(false);
     const [search, setSearch] = useState('');
-    const [video, setVideo] = useState(false);
+    const [notifIcon, setIcon] = useState(notificationIcon);
 
     const {data, refetch} = useQuery(QUERY_ME);
     
@@ -21,6 +22,16 @@ function Nav({ length }) {
     });
 
     let following = data?.me.following || [];
+
+    useEffect(() => {
+        if(data){
+            if(data.me.notifications.length > 0) {
+                setIcon(notificationAlertIcon);
+            } else {
+                setIcon(notificationIcon);
+            }
+        }
+    }, [data])
 
     useEffect(() => {
         refetch();
@@ -40,15 +51,8 @@ function Nav({ length }) {
         }
     }
 
-    const playVideo = () => {
-        setVideo(true);
-    }
-
     return (
     <>
-        {video && (
-            <video id='vid' className='video' controls loop autoplay><source src={aw} type='video/mp4' /></video>
-        )}
         <header className='flex flex-wrap justify-content-between'>
             <button onClick={() => setModal(!modalState)}><img src={menu} alt='hamburger' /></button>
             <div>
@@ -57,7 +61,9 @@ function Nav({ length }) {
                 </Link>   
                 <h4 className='inline no-select length'> {length}</h4>    
             </div>
-            <button onClick={playVideo} className='ooo-whats-this no-decorate'></button>
+            <Link to='/profile/notifications'>
+                <button><img src={notifIcon} alt='notification' /></button>
+            </Link>
         </header>
 
         <div id='side-modal' className='side-modal' onMouseLeave={() => setModal(!modalState)}>

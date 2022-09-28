@@ -1,4 +1,4 @@
-const { User, Review, Day } = require('../models');
+const { User, Review, Day, Reply } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -17,6 +17,7 @@ const resolvers = {
                     .populate('followers')
                     .populate('following')
                     .populate('liked')
+                    .populate('notifications')
                 return userData;    
             }
 
@@ -175,13 +176,13 @@ const resolvers = {
                 { _id: context.user._id },
                 { $addToSet: { following: followId } },
                 { new: true }
-                ).populate("following");
+                );
 
                 const followed = await User.findOneAndUpdate(
                     { _id: followId },
-                    { $addToSet: { followers: context.user._id } },
-                    { new: true }
-                );
+                    { $addToSet: { followers: context.user._id, notifications: { type: 'follower', _id: context.user._id, username: context.user.username } } },
+                    { new: true, runValidators: true }
+                ).populate("following");
         
                 return followed;
             }
@@ -195,13 +196,13 @@ const resolvers = {
                 { _id: context.user._id },
                 { $pull: { following: unfollowId } },
                 { new: true }
-                ).populate("following");
+                );
 
                 const followed = await User.findOneAndUpdate(
                 { _id: unfollowId },
                 { $pull: { followers: context.user._id } },
                 { new: true }
-                );
+                ).populate("following");
         
                 return followed;
             }
@@ -211,9 +212,11 @@ const resolvers = {
 
         addReply: async (parent, { reviewId, body }, context) => {
             if(context.user){
+                const reply = await Reply.create({ user: context.user._id, body })
+
                 const updatedReview = await Review.findOneAndUpdate(
                     { _id: reviewId },
-                    { $push: { replies: { user: context.user._id, body } } },
+                    { $addToSet: { replies: reply._id } },
                     { new: true, runValidators: true }
                 ).populate({
                     path: 'replies',
@@ -221,11 +224,19 @@ const resolvers = {
                                 model: 'User'}
                 }).populate('user');
 
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: updatedReview.user._id },
+                    { $addToSet: { notifications: { type: 'reply', _id: reply._id, username: context.user.username, body: reply.body } } },
+                    { new: true, runValidators: true }
+                );
+
                 return updatedReview;
             }
         },
 
         deleteReply: async (parent, { reviewId, replyId }) => {
+            const reply = await Reply.deleteOne({ _id: replyId })
+
             const updatedReview = await Review.findOneAndUpdate(
                 { _id: reviewId },
                 { $pull: {replies: {_id: replyId } } },
@@ -276,6 +287,29 @@ const resolvers = {
 
             return updatedReview;
         },
+
+        updateNotifs: async (parent, { notifId }, context) => {
+            if(context.user){
+                if(notifId){
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { notifications: { _id: notifId } } },
+                        { new: true }
+                    )
+
+                    return updatedUser    
+                }
+                if(!notifId) {
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { notifications: { type: ['follower', 'reply'] } } },
+                        { new: true }
+                    )
+
+                    return updatedUser  
+                }
+            }
+        }
     }
     
 };

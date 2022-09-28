@@ -57,6 +57,23 @@ const userSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Review'
             }
+        ],
+
+        notifications: [
+            {
+                type: {
+                    type: String,
+                    enum: ['follower', 'reply'],
+                    required: true
+                },
+                _id: {
+                    type: String,
+                    required: true,
+                    unique: true
+                },
+                username: String,
+                body: String
+            }
         ]
     },
     {
@@ -81,10 +98,6 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.isCorrectPassword = async function(password) {
     return bcrypt.compare(password, this.password);
 };
-  
-userSchema.virtual('reviewCount').get(function() {
-    return this.reviews.length;
-});
 
 const User = model('User', userSchema);
 

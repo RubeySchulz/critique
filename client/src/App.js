@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SingleReview from './pages/SingleReview';
+import Notification from './pages/Notifications';
 
 // Apollo Imports
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -64,9 +65,14 @@ function App() {
             <Route path='/profile'>
               <Route path=':username' element={<Profile />} />
               <Route path='' element={<Profile />} />
+              <Route path='notifications' element={<Notification />} />
             </Route>
             <Route path='/past/:id' element={<Home />} />
-            <Route path='/review/:id' element={<SingleReview />} />
+            <Route path='/review'>
+              <Route path=':id' element={<SingleReview />} />
+              <Route path=':id/:replyId' element={<SingleReview />} />
+            </Route>
+            
           </Route>
         </Routes>
       </Router>  

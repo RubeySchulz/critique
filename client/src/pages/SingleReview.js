@@ -14,7 +14,8 @@ import { ADD_REPLY } from '../utils/mutations';
 
 function SingleReview() {
 
-    const { id: reviewId } = useParams();
+    const { id: reviewId, replyId } = useParams();
+    console.log(reviewId, replyId)
     const [reviewContent, setReviewContent] = useState('')
 
     const [addReply] = useMutation(ADD_REPLY);

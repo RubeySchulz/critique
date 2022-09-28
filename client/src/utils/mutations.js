@@ -172,3 +172,16 @@ export const UNLIKE_REVIEW = gql`
         }
     }
 `;
+
+export const UPDATE_NOTIFS = gql`
+mutation UpdateNotifs($notifId: String) {
+    updateNotifs(notifId: $notifId) {
+        notifications {
+            type
+            _id
+            username
+            body
+        }
+    }
+}
+`;

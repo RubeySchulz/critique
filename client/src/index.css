@@ -157,18 +157,6 @@ header button {
   bottom: 6%;
 }
 
-.ooo-whats-this {
-  width: 20px;
-  height: 20px;
-}
-
-.video {
-  position: absolute;
-  z-index: 1000;
-  width: 100vw;
-  height: 100vh;
-}
-
 /*--------------------------------- Home Styling */
 
 textarea.home {
