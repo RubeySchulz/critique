@@ -7,6 +7,9 @@ export const QUERY_ME = gql`
             username
             email
             title
+            notifications {
+                _id
+            }
             reviews {
                 _id
                 body
@@ -42,6 +45,20 @@ export const QUERY_ME_LIKED = gql`
             _id
             liked {
                 _id
+                body
+            }
+        }
+    }
+`;
+
+export const QUERY_ME_NOTIFS = gql`
+    query Me {
+        me {
+            _id
+            notifications {
+                type
+                _id
+                username
                 body
             }
         }

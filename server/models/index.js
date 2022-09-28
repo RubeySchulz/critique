@@ -1,14 +1,6 @@
 const User = require('./User');
 const Review = require('./Review');
 const Day = require('./Day');
+const Reply = require('./Reply');
 
-module.exports = { User, Review, Day };
-
-// User table with 
-// username, email, password, reviews (ref)
-
-// Review table with
-// body, starRating, user (ref), createdAt, day (ref)
-
-// Days table with
-// date, item, image, reviews (ref)
+module.exports = { User, Review, Day, Reply };

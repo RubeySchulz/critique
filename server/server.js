@@ -1,6 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+const { wakeDyno } = require('heroku-keep-awake');
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -17,14 +18,22 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.listen(PORT, () => {
+    wakeDyno('https://critiquedaily.herokuapp.com', {
+        interval: 29,
+        logging: false,
+        stopTimes: { start: '00:00', end: '07:00'}
+    })
+})
+
 // if the app is in production, send state files from the build directory
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, '../client/build')));
 };
 // catch-all if a page doesnt exist, send the user to index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 // Create new instance of Apollo
 const startApolloServer = async (typeDefs, resolvers) => {
