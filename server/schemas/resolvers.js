@@ -84,6 +84,13 @@ const resolvers = {
             })
             .populate('user')
             .populate('day');
+        },
+
+        reply: async(parent, { replyId }) => {
+            const reply = Reply.findOne({ _id: replyId })
+            .populate('user')
+            .populate('replies')
+            return reply;
         }
     },
 
