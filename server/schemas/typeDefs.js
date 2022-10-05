@@ -6,6 +6,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         body: String
+        replyParent: String
     }
 
     type Reply {

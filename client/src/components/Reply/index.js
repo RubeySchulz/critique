@@ -28,7 +28,9 @@ function Reply({ reply, reviewId }) {
                     <button className='ml-2' onClick={deleteHandler}>delete</button>
                 )}
             </div>
-            <h4>{reply.body}</h4>
+            <Link className='no-decorate' to={'/review/'.concat(reviewId + '/' + reply._id)}>
+                <h4>{reply.body}</h4>
+            </Link>
         </div>
     )
 }

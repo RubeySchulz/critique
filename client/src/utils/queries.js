@@ -60,6 +60,7 @@ export const QUERY_ME_NOTIFS = gql`
                 _id
                 username
                 body
+                replyParent
             }
         }
     }

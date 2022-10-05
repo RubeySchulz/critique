@@ -226,7 +226,7 @@ const resolvers = {
 
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: updatedReview.user._id },
-                    { $addToSet: { notifications: { type: 'reply', _id: reply._id, username: context.user.username, body: reply.body } } },
+                    { $addToSet: { notifications: { type: 'reply', _id: reply._id, username: context.user.username, body: reply.body, replyParent: updatedReview._id } } },
                     { new: true, runValidators: true }
                 );
 
@@ -266,6 +266,12 @@ const resolvers = {
                 { $addToSet: { liked: reviewId } }
             )
 
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: updatedReview.user._id },
+                { $addToSet: { notifications: { type: 'like', _id: updatedReview._id, username: context.user.username, body: updatedReview.body } } },
+                { new: true, runValidators: true }
+            );
+
             return updatedReview;
         },
 
@@ -295,16 +301,16 @@ const resolvers = {
                         { _id: context.user._id },
                         { $pull: { notifications: { _id: notifId } } },
                         { new: true }
-                    )
+                    ).populate('notifications')
 
                     return updatedUser    
                 }
-                if(!notifId) {
+                if(notifId === null) {
                     const updatedUser = await User.findOneAndUpdate(
                         { _id: context.user._id },
-                        { $pull: { notifications: { type: ['follower', 'reply'] } } },
+                        { $pull: { notifications: { type: ['follower', 'reply', 'like'] } } },
                         { new: true }
-                    )
+                    ).populate('notifications')
 
                     return updatedUser  
                 }
