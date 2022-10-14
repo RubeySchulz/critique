@@ -6,6 +6,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         body: String
+        replyParent: String
     }
 
     type Reply {
@@ -62,6 +63,7 @@ const typeDefs = gql`
         day(dayId: ID, date: String): Day
 
         review(reviewId: ID!): Review
+        reply(replyId: ID!): Reply
     }
 
     type Mutation {

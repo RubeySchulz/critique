@@ -93,6 +93,15 @@ footer a {
   height: 84px;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.border-right {
+  border-right: 1px solid black;
+  min-height: 50vh;
+}
+
 /*--------------------------------- Nav Styling */
 
 header img {
