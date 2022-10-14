@@ -48,6 +48,8 @@ export const checkDay = async () => {
                 while( imgData === null || imgData.width < 600 || imgData.height < 600 ){
                     console.log('error case ran')
                     image = await getImage(word, num);
+                    console.log(image);
+                    console.log('num:',num);
                     imgData = await getMeta(image);
                     num++;
                 }
