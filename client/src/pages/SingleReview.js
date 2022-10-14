@@ -15,7 +15,6 @@ import { ADD_REPLY } from '../utils/mutations';
 function SingleReview() {
 
     const { id: reviewId, replyId } = useParams();
-    console.log(reviewId, replyId)
     const [reviewContent, setReviewContent] = useState('')
 
     const [addReply] = useMutation(ADD_REPLY);
@@ -23,7 +22,6 @@ function SingleReview() {
     const {loading, data} = useQuery(GET_REVIEW, {
         variables: { reviewId }
     });
-
 
     const reviewChange = (e) => {
         const {value} = e.target;

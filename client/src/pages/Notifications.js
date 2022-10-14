@@ -74,7 +74,7 @@ function Notification() {
                                             <h4><span className='bold'>{notif.username}</span> replied - </h4>
                                         </Link>
                                         <br></br>
-                                        <Link className='no-decorate' onClick={() => handleNotif(notif._id)} to={'/review/'.concat(notif.replyParent + '/').concat(notif._id)}>
+                                        <Link className='no-decorate' onClick={() => handleNotif(notif._id)} to={'/reply/'.concat(notif.replyParent + '/').concat(notif._id)}>
                                             <h3>"{notif.body}"</h3>
                                         </Link>
                                     </div>

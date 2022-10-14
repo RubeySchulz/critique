@@ -79,8 +79,9 @@ const typeDefs = gql`
         followUser(followId: ID!): User
         unfollowUser(unfollowId: ID!): User
 
-        addReply(reviewId: ID!, body: String!): Review
+        addReply(reviewId: ID!, body: String!, replyId: ID): Review
         deleteReply(reviewId: ID!, replyId: ID!): Review
+        deleteNestedReply(parentId: ID!, replyId: ID!): Reply
         likeReview(reviewId: ID!): Review
         unlikeReview(reviewId: ID!): Review
 

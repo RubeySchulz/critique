@@ -71,9 +71,8 @@ function App() {
             <Route path='/past/:id' element={<Home />} />
             <Route path='/review'>
               <Route path=':id' element={<SingleReview />} />
-              <Route path=':id/:replyId' element={<SingleReply />} />
             </Route>
-            
+            <Route path='/reply/:id/:replyId' element={<SingleReply />} />
           </Route>
         </Routes>
       </Router>  

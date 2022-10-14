@@ -135,6 +135,48 @@ export const ADD_REPLY = gql`
     }
 `;
 
+export const ADD_NESTED_REPLY = gql`
+    mutation AddReply($reviewId: ID!, $body: String!, $replyId: ID) {
+        addReply(reviewId: $reviewId, body: $body, replyId: $replyId) {
+            _id
+            body
+            user {
+                username
+            }
+            replies {
+                _id
+                body
+                user {
+                    username
+                    _id
+                }
+                replies {
+                    _id
+                    body
+                }
+            }
+            likes
+            }
+    }
+`;
+
+export const DELETE_NESTED_REPLY = gql`
+    mutation DeleteNestedReply($parentId: ID!, $replyId: ID!) {
+        deleteNestedReply(parentId: $parentId, replyId: $replyId) {
+            _id
+            body
+            user {
+                _id
+                username
+            }
+            replies {
+                body
+                _id
+            }
+        }
+    }
+`
+
 export const DELETE_REPLY = gql`
     mutation DeleteReply($reviewId: ID!, $replyId: ID!) {
         deleteReply(reviewId: $reviewId, replyId: $replyId) {

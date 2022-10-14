@@ -198,13 +198,15 @@ export const GET_REPLY = gql`
             user {
                 _id
                 username
+                title
             }
             replies {
                 body
                 _id
                 user {
-                _id
-                username
+                    _id
+                    username
+                    title
                 }
             }
         }
