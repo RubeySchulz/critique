@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SingleReview from './pages/SingleReview';
+import SingleReply from './pages/SingleReply';
 import Notification from './pages/Notifications';
 
 // Apollo Imports
@@ -70,9 +71,8 @@ function App() {
             <Route path='/past/:id' element={<Home />} />
             <Route path='/review'>
               <Route path=':id' element={<SingleReview />} />
-              <Route path=':id/:replyId' element={<SingleReview />} />
             </Route>
-            
+            <Route path='/reply/:id/:replyId' element={<SingleReply />} />
           </Route>
         </Routes>
       </Router>  

@@ -1,9 +1,6 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const cron = require('node-cron');
-const nodemailer = require('nodemailer');
-const dotenv = require('dotenv').config();
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -19,37 +16,6 @@ const server = new ApolloServer({
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        type: 'OAuth2',
-        user: process.env.MAIL_USERNAME,
-        pass: process.env.MAIL_PASSWORD,
-        clientId: process.env.OAUTH_CLIENTID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN
-    }
-});
-
-let mailOptions = {
-    from: 'bottlename@gmail.com',
-    to: 'bottlename@gmail.com',
-    subject: 'Nodemailer Project',
-    text: 'Hi from your nodemailer project'
-}
-transporter.sendMail(mailOptions, function(err, data) {
-    if (err) {
-        console.log("Error " + err);
-    } else {
-        console.log("Email sent successfully");
-    }
-});
-
-// Task scheduling
-cron.schedule('* * * * *', function() {
-    
-})
 
 // if the app is in production, send state files from the build directory
 if(process.env.NODE_ENV === 'production'){

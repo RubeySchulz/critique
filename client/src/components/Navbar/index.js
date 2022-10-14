@@ -9,7 +9,7 @@ import menu from '../../assets/menu-30.svg';
 import notificationIcon from '../../assets/notification.png'
 import notificationAlertIcon from '../../assets/notification-active.png';
 
-function Nav({ length }) {
+function Nav({ length, clearNotification }) {
     const [modalState, setModal] = useState(false);
     const [search, setSearch] = useState('');
     const [notifIcon, setIcon] = useState(notificationIcon);
@@ -32,6 +32,12 @@ function Nav({ length }) {
             }
         }
     }, [data])
+
+    useEffect(() => {
+        if(clearNotification){
+            setIcon(notificationIcon);
+        }
+    }, [clearNotification])
 
     useEffect(() => {
         refetch();

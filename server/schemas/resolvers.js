@@ -84,6 +84,13 @@ const resolvers = {
             })
             .populate('user')
             .populate('day');
+        },
+
+        reply: async(parent, { replyId }) => {
+            const reply = Reply.findOne({ _id: replyId })
+            .populate('user')
+            .populate('replies')
+            return reply;
         }
     },
 
@@ -210,27 +217,60 @@ const resolvers = {
             throw new AuthenticationError("You need to be logged in!");
         },
 
-        addReply: async (parent, { reviewId, body }, context) => {
+        addReply: async (parent, { reviewId, body, replyId }, context) => {
             if(context.user){
-                const reply = await Reply.create({ user: context.user._id, body })
+                if(!replyId){
+                    const reply = await Reply.create({ user: context.user._id, body })
 
-                const updatedReview = await Review.findOneAndUpdate(
-                    { _id: reviewId },
-                    { $addToSet: { replies: reply._id } },
-                    { new: true, runValidators: true }
-                ).populate({
-                    path: 'replies',
-                    populate: { path: 'user',
-                                model: 'User'}
-                }).populate('user');
+                    const updatedReview = await Review.findOneAndUpdate(
+                        { _id: reviewId },
+                        { $addToSet: { replies: reply._id } },
+                        { new: true, runValidators: true }
+                    ).populate({
+                        path: 'replies',
+                        populate: { path: 'user',
+                                    model: 'User'}
+                    }).populate('user');
 
-                const updatedUser = await User.findOneAndUpdate(
-                    { _id: updatedReview.user._id },
-                    { $addToSet: { notifications: { type: 'reply', _id: reply._id, username: context.user.username, body: reply.body } } },
-                    { new: true, runValidators: true }
-                );
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: updatedReview.user._id },
+                        { $addToSet: { notifications: { type: 'reply', _id: reply._id, username: context.user.username, body: reply.body, replyParent: updatedReview._id } } },
+                        { new: true, runValidators: true }
+                    );
 
-                return updatedReview;
+                    return updatedReview;  
+                    
+                      
+                } else if(replyId){
+                    const reply = await Reply.create({ user: context.user._id, body })
+
+                    const updatedReply = await Reply.findOneAndUpdate(
+                        { _id: replyId },
+                        { $addToSet: { replies: reply._id } },
+                        { new: true, runValidators: true }
+                    )
+
+                    const review = await Review.findOne({ _id: reviewId })
+                    .populate({
+                        path: 'replies',
+                        populate: { path: 'user',
+                                    model: 'User'}
+                    })
+                    .populate('user')
+                    .populate({
+                        path: 'replies',
+                        populate: { path: 'replies',
+                                    model: 'Reply'}
+                    })
+
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: updatedReply.user._id },
+                        { $addToSet: { notifications: { type: 'reply', _id: updatedReply._id, username: context.user.username, body: reply.body, replyParent: review._id } } },
+                        { new: true, runValidators: true }
+                    );
+                    return review;
+                }
+                
             }
         },
 
@@ -250,6 +290,18 @@ const resolvers = {
             return updatedReview;
         },
 
+        deleteNestedReply: async (parent, { parentId, replyId }) => {
+            const reply = await Reply.deleteOne({ _id: replyId })
+
+            const updatedReply = await Reply.findOneAndUpdate(
+                { _id: parentId },
+                { $pull: {replies: {_id: replyId } } },
+                { new: true }
+            ).populate('replies');
+
+            return updatedReply
+        },
+
         likeReview: async (parent, { reviewId }, context) => {
             const updatedReview = await Review.findOneAndUpdate(
                 { _id: reviewId },
@@ -265,6 +317,12 @@ const resolvers = {
                 { _id: context.user._id },
                 { $addToSet: { liked: reviewId } }
             )
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: updatedReview.user._id },
+                { $addToSet: { notifications: { type: 'like', _id: updatedReview._id, username: context.user.username, body: updatedReview.body } } },
+                { new: true, runValidators: true }
+            );
 
             return updatedReview;
         },
@@ -295,16 +353,16 @@ const resolvers = {
                         { _id: context.user._id },
                         { $pull: { notifications: { _id: notifId } } },
                         { new: true }
-                    )
+                    ).populate('notifications')
 
                     return updatedUser    
                 }
-                if(!notifId) {
+                if(notifId === null) {
                     const updatedUser = await User.findOneAndUpdate(
                         { _id: context.user._id },
-                        { $pull: { notifications: { type: ['follower', 'reply'] } } },
+                        { $pull: { notifications: { type: ['follower', 'reply', 'like'] } } },
                         { new: true }
-                    )
+                    ).populate('notifications')
 
                     return updatedUser  
                 }

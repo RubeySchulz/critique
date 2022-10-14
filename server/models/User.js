@@ -59,20 +59,23 @@ const userSchema = new Schema(
             }
         ],
 
+        // if follower, body is null
+        // if reply body is the reply content
+        // if like body is the review ID
         notifications: [
             {
                 type: {
                     type: String,
-                    enum: ['follower', 'reply'],
+                    enum: ['follower', 'reply', 'like'],
                     required: true
                 },
                 _id: {
                     type: String,
-                    required: true,
-                    unique: true
+                    required: true
                 },
                 username: String,
-                body: String
+                body: String,
+                replyParent: String
             }
         ]
     },

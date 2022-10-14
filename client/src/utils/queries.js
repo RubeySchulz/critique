@@ -60,6 +60,7 @@ export const QUERY_ME_NOTIFS = gql`
                 _id
                 username
                 body
+                replyParent
             }
         }
     }
@@ -167,3 +168,47 @@ export const GET_REVIEW = gql`
         }
     }
 `;
+
+export const GET_REVIEW_INFO = gql`
+    query Review($reviewId: ID!) {
+        review(reviewId: $reviewId) {
+            _id
+            body
+            starRating
+            user {
+                _id
+                username
+                title
+            }
+            day {
+                _id
+                item
+                image
+            }
+            likes
+        }
+    }
+`;
+
+export const GET_REPLY = gql`
+    query Reply($replyId: ID!) {
+        reply(replyId: $replyId) {
+            _id
+            body
+            user {
+                _id
+                username
+                title
+            }
+            replies {
+                body
+                _id
+                user {
+                    _id
+                    username
+                    title
+                }
+            }
+        }
+    }
+`

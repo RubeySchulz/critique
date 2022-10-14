@@ -1,18 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { DELETE_REPLY } from '../../utils/mutations';
+import { DELETE_REPLY, DELETE_NESTED_REPLY } from '../../utils/mutations';
+import { useParams } from 'react-router-dom';
 
 import auth from '../../utils/auth';
 
 function Reply({ reply, reviewId }) {
+    const { replyId } = useParams();
+
     const [deleteReply] = useMutation(DELETE_REPLY);
+    const [deleteNestedReply] = useMutation(DELETE_NESTED_REPLY);
 
     const deleteHandler = async () => {
         try {
-            deleteReply({
-                variables: { reviewId, replyId: reply._id }
-            })
+            if(window.location.href.includes('reply')){
+                deleteNestedReply({
+                    variables: { parentId: replyId, replyId: reply._id }
+                })
+            } else {
+                deleteReply({
+                    variables: { reviewId, replyId: reply._id }
+                })
+            }
         } catch(e) {
             console.error(e);
         }
@@ -28,7 +38,9 @@ function Reply({ reply, reviewId }) {
                     <button className='ml-2' onClick={deleteHandler}>delete</button>
                 )}
             </div>
-            <h4>{reply.body}</h4>
+            <Link className='no-decorate' to={'/reply/'.concat(reviewId + '/' + reply._id)}>
+                <h4>{reply.body}</h4>
+            </Link>
         </div>
     )
 }
